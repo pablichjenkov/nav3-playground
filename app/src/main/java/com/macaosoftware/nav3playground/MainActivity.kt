@@ -1,46 +1,63 @@
 package com.macaosoftware.nav3playground
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.navigation3.runtime.NavKey
-import androidx.navigation3.runtime.entryProvider
-import androidx.navigation3.runtime.rememberNavBackStack
-import androidx.navigation3.ui.NavDisplay
-import com.macaosoftware.nav3playground.moduleA.getModuleAEntryPoint
-import com.macaosoftware.nav3playground.moduleA.getModuleAEntryProviderBuilder
-import com.macaosoftware.nav3playground.moduleB.getModuleBEntryPoint
-import com.macaosoftware.nav3playground.moduleB.getModuleBEntryProviderBuilder
-import com.macaosoftware.nav3playground.ui.theme.Nav3PlaygroundTheme
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.coroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.time.Duration.Companion.seconds
 
 class MainActivity : ComponentActivity() {
+
+    private val keepSplashScreenUntilSetupCompletes = true
+
+    // Initializers will be retrieved from Dagger lazily
+    // @Inject
+    // var initializers: Lazy<List<Initializers>>
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen().also {
+            it.setKeepOnScreenCondition { keepSplashScreenUntilSetupCompletes }
+        }
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent {
-            Nav3PlaygroundTheme {
-                val backStack = rememberNavBackStack<NavKey>(getModuleAEntryPoint())
+        startAppSetup()
+    }
 
-                NavDisplay(
-                    backStack = backStack,
-                    onBack = { backStack.removeLastOrNull() },
-                    entryProvider = entryProvider {
+    private fun startAppSetup() = lifecycle.coroutineScope.launch(Dispatchers.Default) {
+        delay(duration = 3.seconds)
 
-                        getModuleAEntryProviderBuilder(
-                            backStack = backStack,
-                            onModuleAResult = {
-                                backStack.add(
-                                    getModuleBEntryPoint()
-                                )
-                            }
-                        ).invoke(this)
+        // Inject Initializers from Dagger here and run their execution
+        // initializers.forEach { it.initialize() }
 
-                        getModuleBEntryProviderBuilder(backStack)
-                            .invoke(this)
-                    }
+        // Once App setup is done launch the next activity from the main thread
+        withContext(Dispatchers.Main) {
+            resolveNextActivity().also {
+                startActivity(
+                    Intent(
+                        this@MainActivity,
+                        it
+                    )
                 )
             }
+            this@MainActivity.finish()
         }
+
+    }
+
+    private fun resolveNextActivity(): Class<out ComponentActivity> {
+        /*
+        return if (user.hasReservation) {
+            ReservationHomeActivity::class.java
+        } else {
+            NoReservationHome::class.java
+        }
+        */
+        return HomeActivity::class.java
     }
 }

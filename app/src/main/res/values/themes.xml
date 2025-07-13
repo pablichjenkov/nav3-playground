@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="Theme.Nav3Playground" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Nav3PlaygroundSplashScreen" parent="Theme.SplashScreen">
+        <item name="android:windowSplashScreenBackground">@color/teal_200</item>
+    </style>
+    <style name="Theme.Nav3PlaygroundApp" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>

@@ -49,6 +49,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.material3)
 
+    // Compose Preview
+    debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.ui.tooling.preview)
+
     // Compose Navigation3
     implementation(libs.androidx.navigation3.ui)
     implementation(libs.androidx.navigation3.runtime)
@@ -63,9 +67,8 @@ dependencies {
     implementation(libs.kotlinx.serialization.core)
     implementation(libs.kotlinx.serialization.json)
 
-    // Preview
-    debugImplementation(libs.androidx.ui.tooling)
-    implementation(libs.androidx.ui.tooling.preview)
+    // Splashscreen API
+    implementation(libs.androidx.splashscreen)
 
     // Unit Test
     testImplementation(libs.junit)
