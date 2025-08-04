@@ -17,8 +17,7 @@
 package com.macaosoftware.nav3playground
 
 import android.os.Bundle
-import android.window.OnBackInvokedCallback
-import android.window.OnBackInvokedDispatcher
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -41,12 +40,16 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
+import androidx.navigationevent.NavigationEvent
+import androidx.navigationevent.compose.NavigationEventHandler
+import kotlinx.coroutines.flow.Flow
 
 private data object Home : NavBarItem(icon = Icons.Default.Home, description = "Home")
 private data object ChatList : NavBarItem(icon = Icons.Default.Face, description = "Chat list")
@@ -58,27 +61,35 @@ private val TOP_LEVEL_ROUTES: List<NavBarItem> = listOf(Home, ChatList, Camera)
 
 class BottomNavigatorActivity : ComponentActivity() {
 
-    val stackNavigator = StackNavigator(navBarItemList = TOP_LEVEL_ROUTES)
-
-    val onBackInvokedCallback = OnBackInvokedCallback {
-        stackNavigator.goBack {
-            finish()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
-            OnBackInvokedDispatcher.PRIORITY_DEFAULT,
-            onBackInvokedCallback
-        )
-
         enableEdgeToEdge()
         setContent {
-//            val stackNavigator = remember {
-//                StackNavigator(listOf(Home, ChatList, Camera))
-//            }
+            val stackNavigator = remember {
+                StackNavigator(navBarItemList = TOP_LEVEL_ROUTES)
+            }
+
+            NavigationEventHandler { progress: Flow<NavigationEvent> ->
+
+                Log.d("BottomNavigatorActivity", "NavigationEventHandler called")
+
+                progress.collect { backEvent ->
+
+                    Log.d(
+                        "BottomNavigatorActivity",
+                        "NavigationEventHandler progress = ${backEvent.progress}"
+                    )
+                }
+
+                stackNavigator.goBack {
+                    finish()
+                }
+
+                Log.d(
+                    "BottomNavigatorActivity",
+                    "NavigationEventHandler collection completed"
+                )
+            }
 
             Scaffold(
                 topBar = {
@@ -154,11 +165,6 @@ class BottomNavigatorActivity : ComponentActivity() {
                 )
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        getOnBackInvokedDispatcher().unregisterOnBackInvokedCallback(onBackInvokedCallback);
     }
 }
 

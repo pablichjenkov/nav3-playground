@@ -10,8 +10,9 @@ activityCompose = "1.10.1"
 composeBom = "2025.07.00"
 kotlinSerializationPlugin = "2.2.0"
 kotlinxSerializationCore = "1.9.0"
-lifecycleViewmodelNav3 = "1.0.0-SNAPSHOT"
-navigation3 = "1.0.0-alpha04"
+navigation3 = "1.0.0-alpha06"
+navigationEventCompose = "1.0.0-alpha05"
+lifecycleViewmodelNav3 = "1.0.0-alpha04"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 splashscreen = "1.0.1"
@@ -35,9 +36,14 @@ androidx-material3-windowsizeclass = { group = "androidx.compose.material3", nam
 
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationCore" }
-androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
+
+## Navigation3
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "navigation3" }
 androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "navigation3" }
+androidx-navigationevent-compose = { module = "androidx.navigationevent:navigationevent-compose", version.ref = "navigationEventCompose" }
+androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
+
+## Android Essentials
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
