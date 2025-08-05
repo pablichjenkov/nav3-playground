@@ -26,11 +26,11 @@ class MainActivity : ComponentActivity() {
         }
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        startAppSetup()
+        setupApplication()
     }
 
-    private fun startAppSetup() = lifecycle.coroutineScope.launch(Dispatchers.Default) {
-        delay(duration = 3.seconds)
+    private fun setupApplication() = lifecycle.coroutineScope.launch(Dispatchers.Default) {
+        delay(duration = 2.seconds)
 
         // Inject Initializers from Dagger here and run their execution
         // initializers.forEach { it.initialize() }
@@ -58,6 +58,6 @@ class MainActivity : ComponentActivity() {
             NoReservationHome::class.java
         }
         */
-        return HomeActivity::class.java
+        return BottomNavigatorActivity::class.java
     }
 }

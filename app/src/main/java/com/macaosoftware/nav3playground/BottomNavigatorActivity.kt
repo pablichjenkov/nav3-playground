@@ -23,11 +23,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,27 +31,23 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigationevent.NavigationEvent
 import androidx.navigationevent.compose.NavigationEventHandler
+import com.macaosoftware.nav3playground.common.NavBarItem
+import com.macaosoftware.nav3playground.common.Search
+import com.macaosoftware.nav3playground.common.StackNavigator
+import com.macaosoftware.nav3playground.common.getModuleCommonEntryProviderBuilder
+import com.macaosoftware.nav3playground.moduleA.ChatList
+import com.macaosoftware.nav3playground.moduleA.getModuleAEntryProviderBuilder
+import com.macaosoftware.nav3playground.moduleB.Camera
+import com.macaosoftware.nav3playground.moduleB.getModuleBEntryProviderBuilder
 import kotlinx.coroutines.flow.Flow
-
-private data object Home : NavBarItem(icon = Icons.Default.Home, description = "Home")
-private data object ChatList : NavBarItem(icon = Icons.Default.Face, description = "Chat list")
-private data object ChatDetail : Route()
-private data object Camera : NavBarItem(icon = Icons.Default.PlayArrow, description = "Camera")
-private data object Search : Route()
 
 private val TOP_LEVEL_ROUTES: List<NavBarItem> = listOf(Home, ChatList, Camera)
 
@@ -65,9 +57,7 @@ class BottomNavigatorActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val stackNavigator = remember {
-                StackNavigator(navBarItemList = TOP_LEVEL_ROUTES)
-            }
+            val stackNavigator = remember { StackNavigator(navBarItemList = TOP_LEVEL_ROUTES) }
 
             NavigationEventHandler { progress: Flow<NavigationEvent> ->
 
@@ -128,39 +118,30 @@ class BottomNavigatorActivity : ComponentActivity() {
 //                        stackNavigator.goBack()
 //                    },
                     entryProvider = entryProvider {
-                        entry<Home> {
-                            ContentRed("Home screen")
-                        }
-                        entry<ChatList> {
-                            ContentGreen("Chat list screen") {
-                                Button(onClick = {
-                                    stackNavigator.navigateInsideCurrentTopLevel(
-                                        ChatList,
-                                        ChatDetail
-                                    )
-                                }) {
-                                    Text("Go to conversation")
-                                }
-                            }
-                        }
-                        entry<ChatDetail> {
-                            ContentBlue("Chat detail screen")
 
-                        }
-                        entry<Camera> {
-                            ContentPurple("Camera screen")
-                        }
-                        entry<Search> {
-                            ContentPink("Search screen") {
-                                var text by rememberSaveable { mutableStateOf("") }
-                                TextField(
-                                    value = text,
-                                    onValueChange = { newText -> text = newText },
-                                    label = { Text("Enter search here") },
-                                    singleLine = true
-                                )
+                        // Add Module App Routes
+                        getModuleAppEntryProviderBuilder(
+                            stackNavigator = stackNavigator
+                        ).invoke(this)
+
+                        // Add Module Common Routes
+                        getModuleCommonEntryProviderBuilder(
+                            stackNavigator = stackNavigator
+                        ).invoke(this)
+
+                        // Add Module A Routes
+                        getModuleAEntryProviderBuilder(
+                            stackNavigator = stackNavigator,
+                            onModuleAResult = {
+                                // Programmatically navigate to module A to B
+                                stackNavigator.navigateToTopLevel(Camera)
                             }
-                        }
+                        ).invoke(this)
+
+                        // Add Module B Routes
+                        getModuleBEntryProviderBuilder(
+                            stackNavigator = stackNavigator
+                        ).invoke(this)
                     },
                 )
             }

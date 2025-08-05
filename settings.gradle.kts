@@ -26,3 +26,4 @@ rootProject.name = "Nav3Playground"
 include(":app")
 include(":moduleA")
 include(":moduleB")
+include(":common")

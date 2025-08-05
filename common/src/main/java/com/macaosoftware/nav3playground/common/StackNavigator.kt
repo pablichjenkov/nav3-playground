@@ -1,6 +1,5 @@
-package com.macaosoftware.nav3playground
+package com.macaosoftware.nav3playground.common
 
-import android.content.IntentSender
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf

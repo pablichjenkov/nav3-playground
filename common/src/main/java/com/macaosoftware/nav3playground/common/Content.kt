@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.macaosoftware.nav3playground
+package com.macaosoftware.nav3playground.common
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.background
@@ -38,8 +38,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.macaosoftware.nav3playground.ui.theme.Nav3PlaygroundTheme
-
 
 @Composable
 fun ContentA(onNext: () -> Unit) = ContentBase(
@@ -123,9 +121,9 @@ fun ColumnScope.Title(title: String) {
 @Composable
 @Preview
 fun ContentAPreview() {
-    Nav3PlaygroundTheme {
+    // Nav3PlaygroundTheme {
         ContentA({})
-    }
+    // }
 }
 
 @Composable

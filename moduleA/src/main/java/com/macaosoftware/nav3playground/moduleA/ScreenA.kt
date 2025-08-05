@@ -21,7 +21,7 @@ internal data object RouteAMain : NavKey
 internal data class RouteAInternal1(val id: String) : NavKey
 
 @Composable
-internal fun ScreensA(
+internal fun ScreenA(
     modifier: Modifier = Modifier,
     onNextClick: () -> Unit,
     onResult: () -> Unit,

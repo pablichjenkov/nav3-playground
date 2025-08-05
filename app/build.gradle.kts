@@ -40,6 +40,7 @@ android {
 dependencies {
 
     // Internal modules
+    implementation(project(":common"))
     implementation(project(":moduleA"))
     implementation(project(":moduleB"))
 

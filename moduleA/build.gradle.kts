@@ -33,6 +33,9 @@ android {
 
 dependencies {
 
+    // Internal modules
+    implementation(project(":common"))
+
     // Compose Core
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
