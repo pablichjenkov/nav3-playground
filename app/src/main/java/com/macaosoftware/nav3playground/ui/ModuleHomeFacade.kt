@@ -1,9 +1,8 @@
-package com.macaosoftware.nav3playground
+package com.macaosoftware.nav3playground.ui
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.navigation3.runtime.EntryProviderBuilder
-import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entry
 import com.macaosoftware.nav3playground.common.ContentRed
 import com.macaosoftware.nav3playground.common.NavBarItem
@@ -12,7 +11,9 @@ import com.macaosoftware.nav3playground.common.StackNavigator
 
 private typealias EntryProviderBuilderLambda = EntryProviderBuilder<Route>.() -> Unit
 
-data object Home : NavBarItem(icon = Icons.Default.Home, description = "Home")
+private data object Home : NavBarItem(icon = Icons.Default.Home, description = "Home")
+
+fun getModuleHomeNavBarItem() : NavBarItem = Home
 
 fun getModuleAppEntryProviderBuilder(
     stackNavigator: StackNavigator

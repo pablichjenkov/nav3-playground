@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nav3PlaygroundApp">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Nav3PlaygroundSplashScreen">
             <intent-filter>
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BottomNavigatorActivity"
+            android:name=".ui.activity.BottomNavigatorActivity"
             android:exported="false" />
     </application>
 

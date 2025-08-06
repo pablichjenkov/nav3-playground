@@ -11,19 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation3.runtime.NavKey
-import kotlinx.serialization.Serializable
-
-@Serializable
-internal data object RouteAMain : NavKey
-
-@Serializable
-internal data class RouteAInternal1(val id: String) : NavKey
 
 @Composable
 internal fun ScreenA(
     modifier: Modifier = Modifier,
-    onNextClick: () -> Unit,
     onResult: () -> Unit,
 ) {
     Scaffold(
@@ -36,11 +27,6 @@ internal fun ScreenA(
                 .padding(contentPadding)
         ) {
             Greeting(name = "John Doe")
-            Button(onClick = onNextClick) {
-                Text(
-                    text = "Go to Module A internal screen",
-                )
-            }
             Button(onClick = onResult) {
                 Text(
                     text = "Deliver Result an go to Module B",

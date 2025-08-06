@@ -1,11 +1,11 @@
-package com.macaosoftware.nav3playground
+package com.macaosoftware.nav3playground.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.coroutineScope
+import com.macaosoftware.nav3playground.ui.activity.BottomNavigatorActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -25,7 +25,6 @@ class MainActivity : ComponentActivity() {
             it.setKeepOnScreenCondition { keepSplashScreenUntilSetupCompletes }
         }
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setupApplication()
     }
 
@@ -36,6 +35,7 @@ class MainActivity : ComponentActivity() {
         // initializers.forEach { it.initialize() }
 
         // Once App setup is done launch the next activity from the main thread
+
         withContext(Dispatchers.Main) {
             resolveNextActivity().also {
                 startActivity(
