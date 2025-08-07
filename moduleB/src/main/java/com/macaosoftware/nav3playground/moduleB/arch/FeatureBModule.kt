@@ -12,7 +12,7 @@ import com.macaosoftware.nav3playground.common.arch.FeatureModule
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
-import com.macaosoftware.nav3playground.moduleB.ui.DrawerNavigation
+import com.macaosoftware.nav3playground.moduleB.ui.ModuleBDrawerNavigation
 
 private typealias EntryProviderBuilderLambda = EntryProviderBuilder<Route>.() -> Unit
 
@@ -52,7 +52,8 @@ class FeatureBModule : FeatureModule {
                 listOf(PageB0NavItem, PageB1NavItem, PageB2NavItem)
             }
 
-            DrawerNavigation(
+            ModuleBDrawerNavigation(
+                parentStackNavigator = stackNavigator,
                 navBarItemList = navBarItemList,
                 onExit = { stackNavigator.goBack() }
             )

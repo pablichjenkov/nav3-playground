@@ -47,16 +47,22 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DrawerNavigation(
+fun ModuleBDrawerNavigation(
+    parentStackNavigator: StackNavigator,
     navBarItemList: List<NavBarItem>,
     onExit: () -> Unit
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val stackNavigator = remember {
-        StackNavigator(
-            navBarItemList = navBarItemList,
-            onExit = onExit
+        parentStackNavigator.childrenStackNavigator.getOrPut(
+            key = "ModuleBDrawerNavigation",
+            defaultValue = {
+                StackNavigator(
+                    navBarItemList = navBarItemList,
+                    onExit = onExit
+                )
+            }
         )
     }
 
