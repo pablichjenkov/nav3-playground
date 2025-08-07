@@ -1,4 +1,4 @@
-package com.macaosoftware.nav3playground.moduleA
+package com.macaosoftware.nav3playground.moduleA.ui.view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets

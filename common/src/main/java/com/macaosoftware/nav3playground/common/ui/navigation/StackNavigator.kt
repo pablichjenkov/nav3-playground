@@ -1,13 +1,13 @@
-package com.macaosoftware.nav3playground.common
+package com.macaosoftware.nav3playground.common.ui.navigation
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.vector.ImageVector
 
 class StackNavigator(
-    navBarItemList: List<NavBarItem>
+    navBarItemList: List<NavBarItem>,
+    val onExit: () -> Unit
 ) {
 
     val backStack = mutableStateListOf<Route>(navBarItemList[0])
@@ -90,9 +90,7 @@ class StackNavigator(
      * Go back to the previous route. If the current navbarItem stack has only one route,
      * the NavbarItem route itself, then navigate to the previous NavBarItem
      */
-    fun goBack(
-        onFinished: () -> Unit
-    ) {
+    fun goBack() {
         if (backStack.size <= 1) {
             navBarItemTransactionHistory.removeLastOrNull()?.also { previousNavBarItem ->
                 stackToNavBarItemMap[previousNavBarItem]?.let { previousStack ->
@@ -104,7 +102,7 @@ class StackNavigator(
                 }
             } ?: run {
                 // No more NavBarItems in the history so exit the App
-                onFinished.invoke()
+                onExit.invoke()
             }
         } else {
             // Lets pop it in the mirror stack first before the actual removal
@@ -114,16 +112,4 @@ class StackNavigator(
             backStack.removeLastOrNull()
         }
     }
-}
-
-abstract class Route
-
-abstract class NavBarItem(
-    val icon: ImageVector,
-    val description: String
-) : Route()
-
-enum class NavigationMode {
-    NewInstance,
-    SingleInstance
 }

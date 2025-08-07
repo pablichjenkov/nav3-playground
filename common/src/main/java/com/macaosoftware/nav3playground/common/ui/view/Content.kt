@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.macaosoftware.nav3playground.common
+package com.macaosoftware.nav3playground.common.ui.view
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.foundation.background
