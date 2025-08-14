@@ -24,6 +24,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "Nav3Playground"
 include(":app")
+include(":moduleFeed")
 include(":moduleA")
 include(":moduleB")
 include(":common")

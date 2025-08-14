@@ -4,5 +4,5 @@ import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 
 interface FeatureModule {
 
-    fun getModuleNavBarItem(): NavBarItem
+    fun getEntryPointNavBarItem(): NavBarItem
 }

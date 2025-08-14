@@ -18,14 +18,14 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigationevent.NavigationEvent
 import androidx.navigationevent.compose.NavigationEventHandler
-import com.macaosoftware.nav3playground.arch.FeatureAppModule
-import com.macaosoftware.nav3playground.common.arch.CommonFeatureModule
 import com.macaosoftware.nav3playground.common.arch.FeatureModule
-import com.macaosoftware.nav3playground.common.arch.SearchNavBarItem
+import com.macaosoftware.nav3playground.common.search.arch.SearchFeatureModule
+import com.macaosoftware.nav3playground.common.search.arch.SearchNavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
 import com.macaosoftware.nav3playground.moduleA.arch.FeatureAModule
+import com.macaosoftware.nav3playground.moduleA.arch.FeedFeatureModule
 import com.macaosoftware.nav3playground.moduleB.arch.FeatureBModule
 import kotlinx.coroutines.flow.Flow
 
@@ -109,9 +109,10 @@ fun HomeContainer(
                     when (featureModule) {
 
                         // Add Module Common Routes
-                        is CommonFeatureModule -> {
+                        is SearchFeatureModule -> {
                             featureModule.getModuleCommonEntryProviderBuilder(
-                                stackNavigator = stackNavigator
+                                stackNavigator = stackNavigator,
+                                onResult = {}
                             ).invoke(this)
                         }
 
@@ -119,7 +120,7 @@ fun HomeContainer(
                         is FeatureAModule -> {
                             featureModule.getModuleAEntryProviderBuilder(
                                 stackNavigator = stackNavigator,
-                                onModuleAResult = {
+                                onResult = {
                                     // Programmatically navigate to module A to B
                                     stackNavigator.navigateToTopLevel(
                                         navBarItem = navBarItemList[2]
@@ -131,14 +132,16 @@ fun HomeContainer(
                         // Add Module B Routes
                         is FeatureBModule -> {
                             featureModule.getModuleBEntryProviderBuilder(
-                                stackNavigator = stackNavigator
+                                stackNavigator = stackNavigator,
+                                onResult = {}
                             ).invoke(this)
                         }
 
-                        // Add Module App Routes
-                        is FeatureAppModule -> {
-                            featureModule.getModuleAppEntryProviderBuilder(
-                                stackNavigator = stackNavigator
+                        // Add Module Feed Routes
+                        is FeedFeatureModule -> {
+                            featureModule.getModuleFeedEntryProviderBuilder(
+                                stackNavigator = stackNavigator,
+                                onResult = {}
                             ).invoke(this)
                         }
 

@@ -41,10 +41,11 @@ internal data object PageB2NavItem : NavBarItem(
 
 class FeatureBModule : FeatureModule {
 
-    override fun getModuleNavBarItem(): NavBarItem = Camera
+    override fun getEntryPointNavBarItem(): NavBarItem = Camera
 
     fun getModuleBEntryProviderBuilder(
         stackNavigator: StackNavigator,
+        onResult: () -> Unit
     ): EntryProviderBuilderLambda = {
         entry<Camera> {
 

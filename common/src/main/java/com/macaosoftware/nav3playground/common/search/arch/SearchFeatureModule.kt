@@ -1,7 +1,6 @@
-package com.macaosoftware.nav3playground.common.arch
+package com.macaosoftware.nav3playground.common.search.arch
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -11,6 +10,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.navigation3.runtime.EntryProviderBuilder
 import androidx.navigation3.runtime.entry
+import com.macaosoftware.nav3playground.common.arch.FeatureModule
 import com.macaosoftware.nav3playground.common.ui.view.ContentPink
 import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
@@ -23,12 +23,13 @@ data object SearchNavBarItem : NavBarItem(
     description = "Common NavBar Item"
 )
 
-class CommonFeatureModule : FeatureModule {
+class SearchFeatureModule : FeatureModule {
 
-    override fun getModuleNavBarItem(): NavBarItem = SearchNavBarItem
+    override fun getEntryPointNavBarItem(): NavBarItem = SearchNavBarItem
 
     fun getModuleCommonEntryProviderBuilder(
-        stackNavigator: StackNavigator
+        stackNavigator: StackNavigator,
+        onResult: () -> Unit
     ): EntryProviderBuilderLambda = {
         entry<SearchNavBarItem> {
             ContentPink("Search Screen") {

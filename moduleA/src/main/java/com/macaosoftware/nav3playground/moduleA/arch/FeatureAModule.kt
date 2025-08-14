@@ -25,11 +25,11 @@ private data object RouteAFinal : Route
 
 class FeatureAModule : FeatureModule {
 
-    override fun getModuleNavBarItem(): NavBarItem = ChatList
+    override fun getEntryPointNavBarItem(): NavBarItem = ChatList
 
     fun getModuleAEntryProviderBuilder(
         stackNavigator: StackNavigator,
-        onModuleAResult: () -> Unit
+        onResult: () -> Unit
     ): EntryProviderBuilderLambda = {
         entry<ChatList> {
             ContentGreen("Chat list screen") {
@@ -56,9 +56,7 @@ class FeatureAModule : FeatureModule {
             }
         }
         entry<RouteAFinal> {
-            ScreenA(
-                onResult = onModuleAResult
-            )
+            ScreenA(onResult = onResult)
         }
     }
 

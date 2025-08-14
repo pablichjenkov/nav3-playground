@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun CreateAccountContainer(modifier: Modifier = Modifier) {
+fun ForgotPasswordContainer(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier.fillMaxSize()
     ) {
@@ -18,7 +18,7 @@ fun CreateAccountContainer(modifier: Modifier = Modifier) {
             modifier = modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Create Account Screen")
+            Text("Forgot Password Screen")
             Button(
                 onClick = {}
             ) {
