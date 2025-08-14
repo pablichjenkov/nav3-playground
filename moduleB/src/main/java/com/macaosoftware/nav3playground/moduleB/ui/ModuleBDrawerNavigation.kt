@@ -55,7 +55,7 @@ fun ModuleBDrawerNavigation(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val stackNavigator = remember {
-        parentStackNavigator.childrenStackNavigator.getOrPut(
+        parentStackNavigator.childrenStackNavigatorMap.getOrPut(
             key = "ModuleBDrawerNavigation",
             defaultValue = {
                 StackNavigator(

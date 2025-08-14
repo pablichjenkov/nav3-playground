@@ -6,7 +6,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
 class StackNavigator(
-    parentStackNavigator: StackNavigator? = null,
     navBarItemList: List<NavBarItem>,
     val onExit: () -> Unit
 ) {
@@ -16,10 +15,12 @@ class StackNavigator(
     var currentNavItem by mutableStateOf<NavBarItem>(value = navBarItemList[0])
         private set
 
-    var childrenStackNavigator = mutableMapOf<String, StackNavigator>()
+    val childrenStackNavigatorMap by lazy {
+        mutableMapOf<String, StackNavigator>()
+    }
 
     private val stackToNavBarItemMap: LinkedHashMap<NavBarItem, MutableList<Route>> =
-        LinkedHashMap<NavBarItem, MutableList<Route>>()
+        LinkedHashMap()
 
     private val navBarItemTransactionHistory = mutableListOf<NavBarItem>()
 
