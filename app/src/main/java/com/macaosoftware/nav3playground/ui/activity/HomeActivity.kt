@@ -3,7 +3,11 @@ package com.macaosoftware.nav3playground.ui.activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import com.macaosoftware.nav3playground.common.search.arch.SearchFeatureModule
+import com.macaosoftware.nav3playground.common.ui.navigation.LocalResultStore
+import com.macaosoftware.nav3playground.common.ui.navigation.ResultStore
 import com.macaosoftware.nav3playground.moduleA.arch.FeatureAModule
 import com.macaosoftware.nav3playground.moduleA.arch.FeedFeatureModule
 import com.macaosoftware.nav3playground.moduleB.arch.FeatureBModule
@@ -42,11 +46,14 @@ class HomeActivity : ComponentActivity() {
         )
 
         setContent {
-            HomeContainer(
-                featureModuleList = featureModuleList,
-                navBarItemList = navBarItemList,
-                onExit = { finish() }
-            )
+            val resultStore = remember { ResultStore() }
+            CompositionLocalProvider(value = LocalResultStore.provides(resultStore)) {
+                HomeContainer(
+                    featureModuleList = featureModuleList,
+                    navBarItemList = navBarItemList,
+                    onExit = { finish() }
+                )
+            }
         }
     }
 }

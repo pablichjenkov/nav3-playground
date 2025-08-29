@@ -11,10 +11,10 @@ import androidx.compose.runtime.setValue
 import androidx.navigation3.runtime.EntryProviderBuilder
 import androidx.navigation3.runtime.entry
 import com.macaosoftware.nav3playground.common.arch.FeatureModule
-import com.macaosoftware.nav3playground.common.ui.view.ContentPink
-import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
+import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
+import com.macaosoftware.nav3playground.common.ui.view.ContentPink
 
 private typealias EntryProviderBuilderLambda = EntryProviderBuilder<Route>.() -> Unit
 
@@ -43,4 +43,5 @@ class SearchFeatureModule : FeatureModule {
             }
         }
     }
+
 }

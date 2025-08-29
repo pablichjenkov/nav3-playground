@@ -52,4 +52,5 @@ class FeedFeatureModule : FeatureModule {
             }
         ).invoke(this)
     }
+
 }

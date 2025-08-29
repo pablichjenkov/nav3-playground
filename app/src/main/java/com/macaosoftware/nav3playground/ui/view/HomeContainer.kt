@@ -19,8 +19,10 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.navigationevent.NavigationEvent
 import androidx.navigationevent.compose.NavigationEventHandler
 import com.macaosoftware.nav3playground.common.arch.FeatureModule
+import com.macaosoftware.nav3playground.common.arch.ResultA
 import com.macaosoftware.nav3playground.common.search.arch.SearchFeatureModule
 import com.macaosoftware.nav3playground.common.search.arch.SearchNavBarItem
+import com.macaosoftware.nav3playground.common.ui.navigation.LocalResultStore
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
@@ -118,14 +120,23 @@ fun HomeContainer(
 
                         // Add Module A Routes
                         is FeatureAModule -> {
+                            val localResultStore = LocalResultStore.current
                             featureModule.getModuleAEntryProviderBuilder(
                                 stackNavigator = stackNavigator,
                                 onResult = {
+                                    // Set a Result for the coming screen to be resumed
+                                    localResultStore.setResult<ResultA>(
+                                        result = ResultA(
+                                            data = "FeatureA_Result_Success"
+                                        )
+                                    )
+
                                     // Programmatically navigate to module A to B
                                     stackNavigator.navigateToTopLevel(
                                         navBarItem = navBarItemList[2]
                                     )
                                 }
+
                             ).invoke(this)
                         }
 

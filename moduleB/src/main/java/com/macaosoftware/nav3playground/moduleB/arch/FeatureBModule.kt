@@ -1,5 +1,6 @@
 package com.macaosoftware.nav3playground.moduleB.arch
 
+import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Call
@@ -9,8 +10,14 @@ import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.EntryProviderBuilder
 import androidx.navigation3.runtime.entry
 import com.macaosoftware.nav3playground.common.arch.FeatureModule
+import com.macaosoftware.nav3playground.common.arch.ResultA
+import com.macaosoftware.nav3playground.common.arch.ResultFeed
+import com.macaosoftware.nav3playground.common.arch.ResultSearch
+import com.macaosoftware.nav3playground.common.ui.navigation.LocalResultStore
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
+import com.macaosoftware.nav3playground.common.ui.navigation.ResultStore
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
+import com.macaosoftware.nav3playground.common.ui.navigation.SingleResultEffect
 import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
 import com.macaosoftware.nav3playground.moduleB.ui.ModuleBDrawerNavigation
 
@@ -48,6 +55,19 @@ class FeatureBModule : FeatureModule {
         onResult: () -> Unit
     ): EntryProviderBuilderLambda = {
         entry<Camera> {
+val resultStore: ResultStore = LocalResultStore.current
+            SingleResultEffect<ResultFeed> {
+
+            }
+            SingleResultEffect<ResultA> {
+                Log.d(
+                    "HomeContainer",
+                    "FeatureB received Result from A = ${it.data}"
+                )
+            }
+            SingleResultEffect<ResultSearch> {
+
+            }
 
             val navBarItemList = remember {
                 listOf(PageB0NavItem, PageB1NavItem, PageB2NavItem)
