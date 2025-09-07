@@ -1,11 +1,17 @@
 package com.macaosoftware.nav3playground.startup
 
 import androidx.activity.ComponentActivity
+import com.macaosoftware.nav3playground.auth.IsUserHasReservationUseCase
 import com.macaosoftware.nav3playground.ui.activity.HomeActivity
+import com.macaosoftware.nav3playground.ui.activity.ReservationActivity
+import dev.zacsweers.metro.Inject
 
-class MainActivityCoordinator {
+@Inject
+class MainActivityCoordinator(
+    private val isUserHasReservationUseCase: IsUserHasReservationUseCase
+) {
 
-    fun resolveNextActivity(notificationData: NotificationData?): Class<out ComponentActivity> {
+    suspend fun resolveNextActivity(notificationData: NotificationData?): Class<out ComponentActivity> {
 
         /**
          * Check if the App was started from a notification then route accordingly
@@ -17,20 +23,22 @@ class MainActivityCoordinator {
         }
     }
 
-    private fun resolveNextActivityForNotificationLaunch(
+    private suspend fun resolveNextActivityForNotificationLaunch(
         notificationData: NotificationData
     ): Class<out ComponentActivity> {
-        return HomeActivity::class.java
-    }
-
-    private fun resolveNextActivityForRegularLaunch(): Class<out ComponentActivity> {
-        /*
-        return if (user.hasReservation) {
-            ReservationHomeActivity::class.java
+        return if (isUserHasReservationUseCase.invoke()) {
+            ReservationActivity::class.java
         } else {
             HomeActivity::class.java
         }
-        */
-        return HomeActivity::class.java
+    }
+
+    private suspend fun resolveNextActivityForRegularLaunch(): Class<out ComponentActivity> {
+
+        return if (isUserHasReservationUseCase.invoke()) {
+            ReservationActivity::class.java
+        } else {
+            HomeActivity::class.java
+        }
     }
 }
