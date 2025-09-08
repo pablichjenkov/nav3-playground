@@ -12,5 +12,10 @@ This project uses google compose only **nav3** navigation library. In this archi
 <BR/>
 The integrator module on the top of the diamond, this one is in charge of the **General App/Module Navigation**. This top module is also in charge of tasks like **App Startup**, **Notifications Routing**, **DeepLink Routing** and such a global application stuff.
 
+#### DI
+The DI framework of choice is Metro, go check the [Metro Repo](https://github.com/ZacSweers/metro), highly recommended.
+<BR/>
+In the diamond architecture, each module exposes the public abstract API in common. Metro will bind the actual implementations from the feature modules or the app module.
+
 #### Demo
 <image width="330" src="https://github.com/user-attachments/assets/69d541c5-5efe-4e5f-bd9f-1e5ee295eab2"/>
