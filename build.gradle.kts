@@ -5,5 +5,5 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.jetbrains.kotlin.serialization) apply false
-    id("dev.zacsweers.metro") version "0.6.4" apply false
+    alias(libs.plugins.metro) apply false
 }

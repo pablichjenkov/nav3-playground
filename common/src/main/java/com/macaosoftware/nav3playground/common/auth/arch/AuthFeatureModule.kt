@@ -12,6 +12,7 @@ import com.macaosoftware.nav3playground.common.auth.ui.LoginContainerCallback
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
+import dev.zacsweers.metro.Inject
 
 private typealias EntryProviderBuilderLambda = EntryProviderBuilder<Route>.() -> Unit
 
@@ -23,6 +24,7 @@ private data object Login : NavBarItem(
 private data object CreateAccount : Route
 private data object ForgotPassword : Route
 
+@Inject
 class AuthFeatureModule : FeatureModule {
 
     override fun getEntryPointNavBarItem(): NavBarItem = Login

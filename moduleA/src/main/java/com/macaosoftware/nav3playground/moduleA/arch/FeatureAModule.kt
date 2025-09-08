@@ -13,6 +13,7 @@ import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
 import com.macaosoftware.nav3playground.common.ui.view.ContentBlue
 import com.macaosoftware.nav3playground.common.ui.view.ContentGreen
 import com.macaosoftware.nav3playground.moduleA.ui.view.ScreenA
+import dev.zacsweers.metro.Inject
 import kotlinx.serialization.Serializable
 
 private typealias EntryProviderBuilderLambda = EntryProviderBuilder<Route>.() -> Unit
@@ -23,6 +24,7 @@ private data object ChatDetail : Route
 @Serializable
 private data object RouteAFinal : Route
 
+@Inject
 class FeatureAModule : FeatureModule {
 
     override fun getEntryPointNavBarItem(): NavBarItem = ChatList

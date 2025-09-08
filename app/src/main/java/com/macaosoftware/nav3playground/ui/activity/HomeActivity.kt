@@ -11,25 +11,33 @@ import com.macaosoftware.nav3playground.common.ui.navigation.ResultStore
 import com.macaosoftware.nav3playground.moduleA.arch.FeatureAModule
 import com.macaosoftware.nav3playground.moduleA.arch.FeedFeatureModule
 import com.macaosoftware.nav3playground.moduleB.arch.FeatureBModule
+import com.macaosoftware.nav3playground.startup.Nav3PlaygroundApplication
 import com.macaosoftware.nav3playground.ui.view.HomeContainer
+import dev.zacsweers.metro.Inject
 
 class HomeActivity : ComponentActivity() {
 
-    // @Inject
-    private val feedFeatureModule = FeedFeatureModule()
+    @Inject
+    private lateinit var feedFeatureModule: FeedFeatureModule
 
-    // @Inject
-    private val featureAModule = FeatureAModule()
+    @Inject
+    private lateinit var featureAModule: FeatureAModule
 
-    // @Inject
-    private val featureBModule = FeatureBModule()
+    @Inject
+    private lateinit var featureBModule: FeatureBModule
 
-    // @Inject
-    private val searchFeatureModule = SearchFeatureModule()
+    @Inject
+    private lateinit var searchFeatureModule: SearchFeatureModule
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        (application as Nav3PlaygroundApplication).appStartupManager.onReady { graph ->
+            graph.inject(target = this@HomeActivity)
+            onActivityReady()
+        }
+    }
 
+    private fun onActivityReady() {
         // Add all modules we want to be able to render
         val featureModuleList = listOf(
             searchFeatureModule,

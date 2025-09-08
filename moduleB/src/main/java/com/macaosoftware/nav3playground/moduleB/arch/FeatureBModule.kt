@@ -20,6 +20,7 @@ import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.SingleResultEffect
 import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
 import com.macaosoftware.nav3playground.moduleB.ui.ModuleBDrawerNavigation
+import dev.zacsweers.metro.Inject
 
 private typealias EntryProviderBuilderLambda = EntryProviderBuilder<Route>.() -> Unit
 
@@ -46,6 +47,7 @@ internal data object PageB2NavItem : NavBarItem(
 // @Serializable
 // private data class RouteBFinal(val id: String) : Route
 
+@Inject
 class FeatureBModule : FeatureModule {
 
     override fun getEntryPointNavBarItem(): NavBarItem = Camera

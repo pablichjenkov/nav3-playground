@@ -15,6 +15,7 @@ import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
 import com.macaosoftware.nav3playground.common.ui.view.ContentPink
+import dev.zacsweers.metro.Inject
 
 private typealias EntryProviderBuilderLambda = EntryProviderBuilder<Route>.() -> Unit
 
@@ -23,6 +24,7 @@ data object SearchNavBarItem : NavBarItem(
     description = "Common NavBar Item"
 )
 
+@Inject
 class SearchFeatureModule : FeatureModule {
 
     override fun getEntryPointNavBarItem(): NavBarItem = SearchNavBarItem

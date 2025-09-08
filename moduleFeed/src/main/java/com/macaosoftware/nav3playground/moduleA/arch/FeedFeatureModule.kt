@@ -11,11 +11,13 @@ import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
 import com.macaosoftware.nav3playground.moduleA.ui.view.FeedContainer
 import com.macaosoftware.nav3playground.moduleA.ui.view.FeedContainerCallback
+import dev.zacsweers.metro.Inject
 
 private typealias EntryProviderBuilderLambda = EntryProviderBuilder<Route>.() -> Unit
 
 internal data object Feed : NavBarItem(icon = Icons.Default.Star, description = "Feed")
 
+@Inject
 class FeedFeatureModule : FeatureModule {
 
     // TODO: Inject this using Metro

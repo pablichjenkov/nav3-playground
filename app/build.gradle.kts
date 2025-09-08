@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
-    id("dev.zacsweers.metro")
+    alias(libs.plugins.metro)
 }
 
 android {
@@ -28,6 +28,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+    kotlinOptions {
+        jvmTarget = "17"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

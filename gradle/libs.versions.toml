@@ -16,6 +16,7 @@ lifecycleViewmodelNav3 = "1.0.0-alpha04"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 splashscreen = "1.0.1"
+metro = "0.6.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,4 +54,5 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+metro = { id = "dev.zacsweers.metro", version.ref = "metro" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerializationPlugin" }
