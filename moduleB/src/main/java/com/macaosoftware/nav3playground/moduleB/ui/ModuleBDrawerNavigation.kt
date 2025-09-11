@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -32,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
-import androidx.navigationevent.NavigationEvent
+import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationEventHandler
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
@@ -42,7 +43,6 @@ import com.macaosoftware.nav3playground.moduleB.arch.PageB2NavItem
 import com.macaosoftware.nav3playground.moduleB.ui.view.ScreenB0
 import com.macaosoftware.nav3playground.moduleB.ui.view.ScreenB1
 import com.macaosoftware.nav3playground.moduleB.ui.view.ScreenB2
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,25 +66,22 @@ fun ModuleBDrawerNavigation(
         )
     }
 
-    NavigationEventHandler { progress: Flow<NavigationEvent> ->
 
-        Log.d("DrawerNavigation", "NavigationEventHandler called")
+    val backInfo = remember { mutableStateListOf<TestNavigationEventInfo>() }
+    Log.d("ModuleBDrawerNavigation", backInfo.toString())
 
-        progress.collect { backEvent ->
-
+    NavigationEventHandler<NavigationEventInfo>(
+        currentInfo = TestNavigationEventInfo(),
+        isForwardEnabled = false,
+        backInfo = backInfo,
+        onBackCompleted = {
             Log.d(
                 "DrawerNavigation",
-                "NavigationEventHandler progress = ${backEvent.progress}"
+                "NavigationEventHandler collection completed"
             )
+            stackNavigator.goBack()
         }
-
-        stackNavigator.goBack()
-
-        Log.d(
-            "DrawerNavigation",
-            "NavigationEventHandler collection completed"
-        )
-    }
+    )
 
     ModalNavigationDrawer(
         drawerContent = {
