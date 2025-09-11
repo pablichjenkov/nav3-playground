@@ -25,7 +25,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -66,18 +65,13 @@ fun ModuleBDrawerNavigation(
         )
     }
 
-
-    val backInfo = remember { mutableStateListOf<TestNavigationEventInfo>() }
-    Log.d("ModuleBDrawerNavigation", backInfo.toString())
-
     NavigationEventHandler<NavigationEventInfo>(
-        currentInfo = TestNavigationEventInfo(),
+        currentInfo = NavigationEventInfo.NotProvided,
         isForwardEnabled = false,
-        backInfo = backInfo,
         onBackCompleted = {
             Log.d(
                 "DrawerNavigation",
-                "NavigationEventHandler collection completed"
+                "NavigationEventHandler::onBackCompleted()"
             )
             stackNavigator.goBack()
         }

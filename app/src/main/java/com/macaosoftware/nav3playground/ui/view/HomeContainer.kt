@@ -11,13 +11,11 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
-import androidx.navigationevent.NavigationEvent
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationEventHandler
 import com.macaosoftware.nav3playground.common.arch.FeatureModule
@@ -31,8 +29,6 @@ import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
 import com.macaosoftware.nav3playground.moduleA.arch.FeatureAModule
 import com.macaosoftware.nav3playground.moduleA.arch.FeedFeatureModule
 import com.macaosoftware.nav3playground.moduleB.arch.FeatureBModule
-import com.macaosoftware.nav3playground.moduleB.ui.TestNavigationEventInfo
-import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun HomeContainer(
@@ -48,13 +44,9 @@ fun HomeContainer(
         )
     }
 
-    val backInfo = remember { mutableStateListOf<TestNavigationEventInfo>() }
-    Log.d("HomeContainer", backInfo.toString())
-
     NavigationEventHandler<NavigationEventInfo>(
-        currentInfo = TestNavigationEventInfo(),
+        currentInfo = NavigationEventInfo.NotProvided,
         isForwardEnabled = false,
-        backInfo = backInfo,
         onBackCompleted = {
             Log.d(
                 "DrawerNavigation",
