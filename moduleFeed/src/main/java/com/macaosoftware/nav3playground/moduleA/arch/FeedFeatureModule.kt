@@ -8,7 +8,7 @@ import com.macaosoftware.nav3playground.common.arch.FeatureModule
 import com.macaosoftware.nav3playground.common.auth.arch.AuthFeatureModule
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
-import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
+import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
 import com.macaosoftware.nav3playground.moduleA.ui.view.FeedContainer
 import com.macaosoftware.nav3playground.moduleA.ui.view.FeedContainerCallback
 import dev.zacsweers.metro.Inject
@@ -27,23 +27,21 @@ class FeedFeatureModule : FeatureModule {
     override fun getEntryPointNavBarItem(): NavBarItem = Feed
 
     fun getModuleFeedEntryProviderBuilder(
-        stackNavigator: StackNavigator,
+        singleStackNavigator: SingleStackNavigator,
         onResult: () -> Unit
     ): EntryProviderBuilderLambda = {
         entry<Feed> {
             FeedContainer(
                 callback = FeedContainerCallback(
                     goToAuthScreen = {
-                        stackNavigator.pushRouteIntoCurrentTopLevel(
-                            route = authEntryPointRoute
-                        )
+                        singleStackNavigator.navigate(route = authEntryPointRoute)
                     }
                 )
             )
         }
 
         authFeatureModule.getModuleAuthEntryProviderBuilder(
-            stackNavigator = stackNavigator,
+            singleStackNavigator = singleStackNavigator,
             onResult = { loginResult ->
                 if (loginResult) {
                     // Show feed content. Don't have to do anything. It will land in the Feed

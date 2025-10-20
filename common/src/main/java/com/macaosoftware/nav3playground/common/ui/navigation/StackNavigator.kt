@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
-class StackNavigator(
+internal class StackNavigator(
     navBarItemList: List<NavBarItem>,
     val onExit: () -> Unit
 ) {
@@ -17,7 +17,7 @@ class StackNavigator(
         private set
 
     val childrenStackNavigatorMap by lazy {
-        mutableMapOf<String, StackNavigator>()
+        mutableMapOf<String, TopLevelNavigator>()
     }
 
     private val stackToNavBarItemMap: LinkedHashMap<NavBarItem, MutableList<Route>> =
@@ -31,7 +31,7 @@ class StackNavigator(
         }
     }
 
-    fun navigateToTopLevel(navBarItem: NavBarItem) {
+    fun selectTopLevel(navBarItem: NavBarItem) {
 
         // Ignore when tapping in the current active bottom bar tab
         if (navBarItem == currentNavItem) return
@@ -49,9 +49,7 @@ class StackNavigator(
         }
     }
 
-    //TODO: This function should be called only from TopLevel aware modules. Eg the module
-    // which host a BottomNavigation component or a NavigationDrawer component.
-    fun navigateInsideCurrentTopLevel(
+    fun navigate(
         navBarItem: NavBarItem,
         route: Route,
         navigationMode: NavigationMode = NavigationMode.NewInstance
@@ -59,10 +57,6 @@ class StackNavigator(
         when (navigationMode) {
             NavigationMode.NewInstance -> {
                 stackToNavBarItemMap[navBarItem]?.let { newStack ->
-                    // Only update if the NavBarItem is the same as the currentNavItem
-                    // Is not practical and illegal to modify a stack which is not the
-                    // current stack.
-                    if (navBarItem != currentNavItem) throw IllegalStateException()
                     newStack.add(route)
                     backStack.add(route)
                     currentNavItem = navBarItem

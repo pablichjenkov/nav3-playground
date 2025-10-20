@@ -18,7 +18,7 @@ import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.ResultStore
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.SingleResultEffect
-import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
+import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
 import com.macaosoftware.nav3playground.moduleB.ui.ModuleBDrawerNavigation
 import dev.zacsweers.metro.Inject
 
@@ -53,7 +53,7 @@ class FeatureBModule : FeatureModule {
     override fun getEntryPointNavBarItem(): NavBarItem = Camera
 
     fun getModuleBEntryProviderBuilder(
-        stackNavigator: StackNavigator,
+        singleStackNavigator: SingleStackNavigator,
         onResult: () -> Unit
     ): EntryProviderBuilderLambda = {
         entry<Camera> {
@@ -76,9 +76,9 @@ val resultStore: ResultStore = LocalResultStore.current
             }
 
             ModuleBDrawerNavigation(
-                parentStackNavigator = stackNavigator,
+                parentStackNavigator = singleStackNavigator,
                 navBarItemList = navBarItemList,
-                onExit = { stackNavigator.goBack() }
+                onExit = { singleStackNavigator.goBack() }
             )
         }
     }

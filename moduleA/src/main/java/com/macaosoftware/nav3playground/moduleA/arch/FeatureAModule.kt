@@ -9,7 +9,7 @@ import androidx.navigation3.runtime.entry
 import com.macaosoftware.nav3playground.common.arch.FeatureModule
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
-import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
+import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
 import com.macaosoftware.nav3playground.common.ui.view.ContentBlue
 import com.macaosoftware.nav3playground.common.ui.view.ContentGreen
 import com.macaosoftware.nav3playground.moduleA.ui.view.ScreenA
@@ -30,16 +30,13 @@ class FeatureAModule : FeatureModule {
     override fun getEntryPointNavBarItem(): NavBarItem = ChatList
 
     fun getModuleAEntryProviderBuilder(
-        stackNavigator: StackNavigator,
+        singleStackNavigator: SingleStackNavigator,
         onResult: () -> Unit
     ): EntryProviderBuilderLambda = {
         entry<ChatList> {
             ContentGreen("Chat list screen") {
                 Button(onClick = {
-                    stackNavigator.navigateInsideCurrentTopLevel(
-                        navBarItem = ChatList,
-                        route = ChatDetail
-                    )
+                    singleStackNavigator.navigate(route = ChatDetail)
                 }) {
                     Text("Go to conversation")
                 }
@@ -48,10 +45,7 @@ class FeatureAModule : FeatureModule {
         entry<ChatDetail> {
             ContentBlue("Chat Detail Screen") {
                 Button(onClick = {
-                    stackNavigator.navigateInsideCurrentTopLevel(
-                        navBarItem = ChatList,
-                        route = RouteAFinal
-                    )
+                    singleStackNavigator.navigate(route = RouteAFinal)
                 }) {
                     Text("Go to last screen")
                 }

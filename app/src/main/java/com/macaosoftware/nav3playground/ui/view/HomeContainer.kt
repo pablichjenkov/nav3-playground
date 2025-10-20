@@ -25,7 +25,7 @@ import com.macaosoftware.nav3playground.common.search.arch.SearchNavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.LocalResultStore
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
-import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
+import com.macaosoftware.nav3playground.common.ui.navigation.TopLevelNavigator
 import com.macaosoftware.nav3playground.moduleA.arch.FeatureAModule
 import com.macaosoftware.nav3playground.moduleA.arch.FeedFeatureModule
 import com.macaosoftware.nav3playground.moduleB.arch.FeatureBModule
@@ -37,8 +37,8 @@ fun HomeContainer(
     onExit: () -> Unit
 ) {
 
-    val stackNavigator = remember {
-        StackNavigator(
+    val topLevelNavigator = remember {
+        TopLevelNavigator(
             navBarItemList = navBarItemList,
             onExit = onExit
         )
@@ -52,15 +52,14 @@ fun HomeContainer(
                 "DrawerNavigation",
                 "NavigationEventHandler::onBackCompleted()"
             )
-            stackNavigator.goBack()
+            topLevelNavigator.goBack()
         }
     )
 
     Scaffold(
         topBar = {
             TopAppBarWithSearch {
-                stackNavigator.navigateInsideCurrentTopLevel(
-                    navBarItem = stackNavigator.currentNavItem,
+                topLevelNavigator.pushRouteIntoCurrentTopLevel(
                     route = (SearchNavBarItem as Route)
                 )
             }
@@ -69,12 +68,12 @@ fun HomeContainer(
             NavigationBar {
                 navBarItemList.forEach { topLevelRoute ->
 
-                    val isSelected = topLevelRoute == stackNavigator.currentNavItem
+                    val isSelected = topLevelRoute == topLevelNavigator.currentNavItem
 
                     NavigationBarItem(
                         selected = isSelected,
                         onClick = {
-                            stackNavigator.navigateToTopLevel(navBarItem = topLevelRoute)
+                            topLevelNavigator.selectTopLevel(navBarItem = topLevelRoute)
                         },
                         icon = {
                             Icon(
@@ -89,13 +88,13 @@ fun HomeContainer(
     ) { paddingValues ->
         NavDisplay(
             modifier = Modifier.padding(paddingValues),
-            backStack = stackNavigator.backStack,
+            backStack = topLevelNavigator.backStack,
             onBack = {
                 /**
                  * This onBack is called whenever the backstack is greater than 1.
                  * When the stack is 1 item, the NavigationEventHandler is called instead
                  * */
-                stackNavigator.goBack()
+                topLevelNavigator.goBack()
             },
             entryProvider = entryProvider {
                 featureModuleList.forEach { featureModule ->
@@ -104,7 +103,9 @@ fun HomeContainer(
                         // Add Module Common Routes
                         is SearchFeatureModule -> {
                             featureModule.getModuleCommonEntryProviderBuilder(
-                                stackNavigator = stackNavigator,
+                                singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
+                                    navBarItem = featureModule.getEntryPointNavBarItem()
+                                ),
                                 onResult = {}
                             ).invoke(this)
                         }
@@ -113,7 +114,9 @@ fun HomeContainer(
                         is FeatureAModule -> {
                             val localResultStore = LocalResultStore.current
                             featureModule.getModuleAEntryProviderBuilder(
-                                stackNavigator = stackNavigator,
+                                singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
+                                    navBarItem = featureModule.getEntryPointNavBarItem()
+                                ),
                                 onResult = {
                                     // Set a Result for the coming screen to be resumed
                                     localResultStore.setResult<ResultA>(
@@ -123,7 +126,7 @@ fun HomeContainer(
                                     )
 
                                     // Programmatically navigate to module A to B
-                                    stackNavigator.navigateToTopLevel(
+                                    topLevelNavigator.selectTopLevel(
                                         navBarItem = navBarItemList[2]
                                     )
                                 }
@@ -134,7 +137,9 @@ fun HomeContainer(
                         // Add Module B Routes
                         is FeatureBModule -> {
                             featureModule.getModuleBEntryProviderBuilder(
-                                stackNavigator = stackNavigator,
+                                singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
+                                    navBarItem = featureModule.getEntryPointNavBarItem()
+                                ),
                                 onResult = {}
                             ).invoke(this)
                         }
@@ -142,7 +147,9 @@ fun HomeContainer(
                         // Add Module Feed Routes
                         is FeedFeatureModule -> {
                             featureModule.getModuleFeedEntryProviderBuilder(
-                                stackNavigator = stackNavigator,
+                                singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
+                                    navBarItem = featureModule.getEntryPointNavBarItem()
+                                ),
                                 onResult = {}
                             ).invoke(this)
                         }

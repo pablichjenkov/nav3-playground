@@ -11,7 +11,7 @@ import com.macaosoftware.nav3playground.common.auth.ui.LoginContainer
 import com.macaosoftware.nav3playground.common.auth.ui.LoginContainerCallback
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
-import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
+import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
 import dev.zacsweers.metro.Inject
 
 private typealias EntryProviderBuilderLambda = EntryProviderBuilder<Route>.() -> Unit
@@ -30,7 +30,7 @@ class AuthFeatureModule : FeatureModule {
     override fun getEntryPointNavBarItem(): NavBarItem = Login
 
     fun getModuleAuthEntryProviderBuilder(
-        stackNavigator: StackNavigator,
+        singleStackNavigator: SingleStackNavigator,
         onResult: (Boolean) -> Unit
     ): EntryProviderBuilderLambda = {
         entry<Login> {
@@ -38,18 +38,14 @@ class AuthFeatureModule : FeatureModule {
                 loginContainerCallback = LoginContainerCallback(
                     onResult = { loginResult ->
                         // Pop the last screen in the auth module before delivering the result
-                        stackNavigator.goBack()
+                        singleStackNavigator.goBack()
                         onResult.invoke(loginResult)
                     },
                     goToCreateAccount = {
-                        stackNavigator.pushRouteIntoCurrentTopLevel(
-                            route = CreateAccount
-                        )
+                        singleStackNavigator.navigate(route = CreateAccount)
                     },
                     goToForgotPassword = {
-                        stackNavigator.pushRouteIntoCurrentTopLevel(
-                            route = ForgotPassword
-                        )
+                        singleStackNavigator.navigate(route = ForgotPassword)
                     }
                 )
             )

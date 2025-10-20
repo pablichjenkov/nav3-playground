@@ -35,7 +35,8 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationEventHandler
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
-import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
+import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
+import com.macaosoftware.nav3playground.common.ui.navigation.TopLevelNavigator
 import com.macaosoftware.nav3playground.moduleB.arch.PageB0NavItem
 import com.macaosoftware.nav3playground.moduleB.arch.PageB1NavItem
 import com.macaosoftware.nav3playground.moduleB.arch.PageB2NavItem
@@ -47,17 +48,17 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ModuleBDrawerNavigation(
-    parentStackNavigator: StackNavigator,
+    parentStackNavigator: SingleStackNavigator,
     navBarItemList: List<NavBarItem>,
     onExit: () -> Unit
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    val stackNavigator = remember {
+    val topLevelNavigator = remember {
         parentStackNavigator.childrenStackNavigatorMap.getOrPut(
             key = "ModuleBDrawerNavigation",
             defaultValue = {
-                StackNavigator(
+                TopLevelNavigator(
                     navBarItemList = navBarItemList,
                     onExit = onExit
                 )
@@ -73,7 +74,7 @@ fun ModuleBDrawerNavigation(
                 "DrawerNavigation",
                 "NavigationEventHandler::onBackCompleted()"
             )
-            stackNavigator.goBack()
+            topLevelNavigator.goBack()
         }
     )
 
@@ -102,7 +103,7 @@ fun ModuleBDrawerNavigation(
                         label = { Text("Page 0") },
                         selected = false,
                         onClick = {
-                            stackNavigator.navigateToTopLevel(
+                            topLevelNavigator.selectTopLevel(
                                 navBarItem = PageB0NavItem
                             )
                         }
@@ -111,7 +112,7 @@ fun ModuleBDrawerNavigation(
                         label = { Text("Page 1") },
                         selected = false,
                         onClick = {
-                            stackNavigator.navigateToTopLevel(
+                            topLevelNavigator.selectTopLevel(
                                 navBarItem = PageB1NavItem
                             )
                         }
@@ -130,7 +131,7 @@ fun ModuleBDrawerNavigation(
                         icon = { Icon(Icons.Outlined.Settings, contentDescription = null) },
                         badge = { Text("20") }, // Placeholder
                         onClick = {
-                            stackNavigator.navigateToTopLevel(
+                            topLevelNavigator.selectTopLevel(
                                 navBarItem = PageB2NavItem
                             )
                         }
@@ -176,13 +177,13 @@ fun ModuleBDrawerNavigation(
         ) { paddingValues ->
             NavDisplay(
                 modifier = Modifier.padding(paddingValues),
-                backStack = stackNavigator.backStack,
+                backStack = topLevelNavigator.backStack,
                 onBack = {
                     /**
                      * This onBack is called whenever the backstack is greater than 1.
                      * When the stack is 1 item, the NavigationEventHandler is called instead
                      * */
-                    stackNavigator.goBack()
+                    topLevelNavigator.goBack()
                 },
                 entryProvider = entryProvider {
 

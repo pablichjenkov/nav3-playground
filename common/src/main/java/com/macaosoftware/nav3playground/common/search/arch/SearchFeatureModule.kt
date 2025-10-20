@@ -13,7 +13,7 @@ import androidx.navigation3.runtime.entry
 import com.macaosoftware.nav3playground.common.arch.FeatureModule
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
-import com.macaosoftware.nav3playground.common.ui.navigation.StackNavigator
+import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
 import com.macaosoftware.nav3playground.common.ui.view.ContentPink
 import dev.zacsweers.metro.Inject
 
@@ -30,7 +30,7 @@ class SearchFeatureModule : FeatureModule {
     override fun getEntryPointNavBarItem(): NavBarItem = SearchNavBarItem
 
     fun getModuleCommonEntryProviderBuilder(
-        stackNavigator: StackNavigator,
+        singleStackNavigator: SingleStackNavigator,
         onResult: () -> Unit
     ): EntryProviderBuilderLambda = {
         entry<SearchNavBarItem> {
