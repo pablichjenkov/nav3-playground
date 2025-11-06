@@ -7,8 +7,7 @@ import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.remember
-import androidx.navigation3.runtime.EntryProviderBuilder
-import androidx.navigation3.runtime.entry
+import androidx.navigation3.runtime.EntryProviderScope
 import com.macaosoftware.nav3playground.common.arch.FeatureModule
 import com.macaosoftware.nav3playground.common.arch.ResultA
 import com.macaosoftware.nav3playground.common.arch.ResultFeed
@@ -22,7 +21,7 @@ import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigato
 import com.macaosoftware.nav3playground.moduleB.ui.ModuleBDrawerNavigation
 import dev.zacsweers.metro.Inject
 
-private typealias EntryProviderBuilderLambda = EntryProviderBuilder<Route>.() -> Unit
+private typealias EntryProviderScopeLambda = EntryProviderScope<Route>.() -> Unit
 
 private data object Camera : NavBarItem(
     icon = Icons.Default.Call,
@@ -55,7 +54,7 @@ class FeatureBModule : FeatureModule {
     fun getModuleBEntryProviderBuilder(
         singleStackNavigator: SingleStackNavigator,
         onResult: () -> Unit
-    ): EntryProviderBuilderLambda = {
+    ): EntryProviderScopeLambda = {
         entry<Camera> {
 val resultStore: ResultStore = LocalResultStore.current
             SingleResultEffect<ResultFeed> {

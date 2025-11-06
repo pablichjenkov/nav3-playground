@@ -2,8 +2,7 @@ package com.macaosoftware.nav3playground.common.auth.arch
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
-import androidx.navigation3.runtime.EntryProviderBuilder
-import androidx.navigation3.runtime.entry
+import androidx.navigation3.runtime.EntryProviderScope
 import com.macaosoftware.nav3playground.common.arch.FeatureModule
 import com.macaosoftware.nav3playground.common.auth.ui.CreateAccountContainer
 import com.macaosoftware.nav3playground.common.auth.ui.ForgotPasswordContainer
@@ -14,7 +13,7 @@ import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
 import dev.zacsweers.metro.Inject
 
-private typealias EntryProviderBuilderLambda = EntryProviderBuilder<Route>.() -> Unit
+private typealias EntryProviderScopeLambda = EntryProviderScope<Route>.() -> Unit
 
 private data object Login : NavBarItem(
     icon = Icons.Default.Call,
@@ -32,7 +31,7 @@ class AuthFeatureModule : FeatureModule {
     fun getModuleAuthEntryProviderBuilder(
         singleStackNavigator: SingleStackNavigator,
         onResult: (Boolean) -> Unit
-    ): EntryProviderBuilderLambda = {
+    ): EntryProviderScopeLambda = {
         entry<Login> {
             LoginContainer(
                 loginContainerCallback = LoginContainerCallback(

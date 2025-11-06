@@ -29,11 +29,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationEventHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
 import com.macaosoftware.nav3playground.common.ui.navigation.TopLevelNavigator
@@ -66,13 +66,19 @@ fun ModuleBDrawerNavigation(
         )
     }
 
-    NavigationEventHandler<NavigationEventInfo>(
-        currentInfo = NavigationEventInfo.NotProvided,
+    NavigationEventHandler(
+        state = rememberNavigationEventState(currentInfo = NavigationEventInfo.None),
         isForwardEnabled = false,
+        onBackCancelled = {
+            Log.d(
+                "DrawerNavigation",
+                "NavigationEventHandler::onBackCancelled"
+            )
+        },
         onBackCompleted = {
             Log.d(
                 "DrawerNavigation",
-                "NavigationEventHandler::onBackCompleted()"
+                "NavigationEventHandler::onBackCompleted"
             )
             topLevelNavigator.goBack()
         }

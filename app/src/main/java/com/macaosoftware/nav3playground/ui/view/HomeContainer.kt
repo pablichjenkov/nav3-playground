@@ -18,6 +18,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationEventHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import com.macaosoftware.nav3playground.common.arch.FeatureModule
 import com.macaosoftware.nav3playground.common.arch.ResultA
 import com.macaosoftware.nav3playground.common.search.arch.SearchFeatureModule
@@ -44,13 +45,19 @@ fun HomeContainer(
         )
     }
 
-    NavigationEventHandler<NavigationEventInfo>(
-        currentInfo = NavigationEventInfo.NotProvided,
+    NavigationEventHandler(
+        state = rememberNavigationEventState(currentInfo = NavigationEventInfo.None),
         isForwardEnabled = false,
+        onBackCancelled = {
+            Log.d(
+                "HomeContainer",
+                "NavigationEventHandler::onBackCancelled"
+            )
+        },
         onBackCompleted = {
             Log.d(
-                "DrawerNavigation",
-                "NavigationEventHandler::onBackCompleted()"
+                "HomeContainer",
+                "NavigationEventHandler::onBackCompleted"
             )
             topLevelNavigator.goBack()
         }

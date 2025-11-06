@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.material3)
+    implementation("androidx.compose.material:material-icons-core:1.7.8")
 
     // Compose Preview
     debugImplementation(libs.androidx.ui.tooling)
