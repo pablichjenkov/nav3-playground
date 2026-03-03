@@ -11,11 +11,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.macaosoftware.nav3playground.common.arch.ResultA
 
 @Composable
 internal fun ScreenA(
     modifier: Modifier = Modifier,
-    onResult: () -> Unit,
+    onResult: (ResultA) -> Unit,
 ) {
     Scaffold(
         modifier = modifier,
@@ -27,7 +28,9 @@ internal fun ScreenA(
                 .padding(contentPadding)
         ) {
             Greeting(name = "John Doe")
-            Button(onClick = onResult) {
+            Button(
+                onClick = { onResult.invoke(ResultA("Screen A Result Data"))}
+            ) {
                 Text(
                     text = "Deliver Result an go to Module B",
                 )

@@ -8,15 +8,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.navigation3.runtime.EntryProviderScope
-import com.macaosoftware.nav3playground.common.arch.FeatureModule
+import com.macaosoftware.nav3playground.common.ui.navigation.EntryProviderScopeLambda
+import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Graph
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
-import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
 import com.macaosoftware.nav3playground.common.ui.view.ContentPink
 import dev.zacsweers.metro.Inject
-
-private typealias EntryProviderScopeLambda = EntryProviderScope<Route>.() -> Unit
 
 data object SearchNavBarItem : NavBarItem(
     icon = Icons.Default.Search,
@@ -24,11 +21,11 @@ data object SearchNavBarItem : NavBarItem(
 )
 
 @Inject
-class SearchFeatureModule : FeatureModule {
+class SearchNav3Graph : Nav3Graph {
 
-    override fun getEntryPointNavBarItem(): NavBarItem = SearchNavBarItem
+    override fun entryPointNavBarItem(): NavBarItem = SearchNavBarItem
 
-    fun getModuleCommonEntryProviderBuilder(
+    fun entryProviderBuilder(
         singleStackNavigator: SingleStackNavigator,
         onResult: () -> Unit
     ): EntryProviderScopeLambda = {
@@ -44,5 +41,4 @@ class SearchFeatureModule : FeatureModule {
             }
         }
     }
-
 }

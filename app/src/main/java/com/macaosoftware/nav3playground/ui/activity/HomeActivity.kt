@@ -5,12 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
-import com.macaosoftware.nav3playground.common.search.arch.SearchFeatureModule
+import com.macaosoftware.nav3playground.common.search.arch.SearchNav3Graph
 import com.macaosoftware.nav3playground.common.ui.navigation.LocalResultStore
 import com.macaosoftware.nav3playground.common.ui.navigation.ResultStore
-import com.macaosoftware.nav3playground.moduleA.arch.FeatureAModule
-import com.macaosoftware.nav3playground.moduleA.arch.FeedFeatureModule
-import com.macaosoftware.nav3playground.moduleB.arch.FeatureBModule
+import com.macaosoftware.nav3playground.moduleA.arch.FeedNav3Graph
+import com.macaosoftware.nav3playground.moduleA.arch.ModuleANav3Graph
+import com.macaosoftware.nav3playground.moduleB.arch.ModuleBNav3Graph
 import com.macaosoftware.nav3playground.startup.Nav3PlaygroundApplication
 import com.macaosoftware.nav3playground.ui.view.HomeContainer
 import dev.zacsweers.metro.Inject
@@ -18,16 +18,16 @@ import dev.zacsweers.metro.Inject
 class HomeActivity : ComponentActivity() {
 
     @Inject
-    private lateinit var feedFeatureModule: FeedFeatureModule
+    private lateinit var feedFeatureModule: FeedNav3Graph
 
     @Inject
-    private lateinit var featureAModule: FeatureAModule
+    private lateinit var featureAModule: ModuleANav3Graph
 
     @Inject
-    private lateinit var featureBModule: FeatureBModule
+    private lateinit var featureBModule: ModuleBNav3Graph
 
     @Inject
-    private lateinit var searchFeatureModule: SearchFeatureModule
+    private lateinit var searchFeatureModule: SearchNav3Graph
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,16 +48,16 @@ class HomeActivity : ComponentActivity() {
 
         // Add the 3 modules we want to show in the BottomNavigationBar
         val navBarItemList = listOf(
-            feedFeatureModule.getEntryPointNavBarItem(),
-            featureAModule.getEntryPointNavBarItem(),
-            featureBModule.getEntryPointNavBarItem()
+            feedFeatureModule.entryPointNavBarItem(),
+            featureAModule.entryPointNavBarItem(),
+            featureBModule.entryPointNavBarItem()
         )
 
         setContent {
             val resultStore = remember { ResultStore() }
             CompositionLocalProvider(value = LocalResultStore.provides(resultStore)) {
                 HomeContainer(
-                    featureModuleList = featureModuleList,
+                    nav3GraphList = featureModuleList,
                     navBarItemList = navBarItemList,
                     onExit = { finish() }
                 )

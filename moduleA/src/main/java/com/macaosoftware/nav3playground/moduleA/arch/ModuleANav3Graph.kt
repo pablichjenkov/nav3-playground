@@ -1,36 +1,25 @@
 package com.macaosoftware.nav3playground.moduleA.arch
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
-import androidx.navigation3.runtime.EntryProviderScope
-import com.macaosoftware.nav3playground.common.arch.FeatureModule
+import com.macaosoftware.nav3playground.common.arch.ResultA
+import com.macaosoftware.nav3playground.common.ui.navigation.EntryProviderScopeLambda
+import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Graph
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
-import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
 import com.macaosoftware.nav3playground.common.ui.view.ContentBlue
 import com.macaosoftware.nav3playground.common.ui.view.ContentGreen
 import com.macaosoftware.nav3playground.moduleA.ui.view.ScreenA
 import dev.zacsweers.metro.Inject
-import kotlinx.serialization.Serializable
-
-private typealias EntryProviderScopeLambda = EntryProviderScope<Route>.() -> Unit
-
-private object ChatList : NavBarItem(icon = Icons.Default.Face, description = "Chat list")
-private data object ChatDetail : Route
-
-@Serializable
-private data object RouteAFinal : Route
 
 @Inject
-class FeatureAModule : FeatureModule {
+class ModuleANav3Graph() : Nav3Graph {
 
-    override fun getEntryPointNavBarItem(): NavBarItem = ChatList
+    override fun entryPointNavBarItem(): NavBarItem = ChatList
 
-    fun getModuleAEntryProviderBuilder(
+    fun entryProviderScope(
         singleStackNavigator: SingleStackNavigator,
-        onResult: () -> Unit
+        onResult: (ResultA) -> Unit
     ): EntryProviderScopeLambda = {
         entry<ChatList> {
             ContentGreen("Chat list screen") {
@@ -54,5 +43,4 @@ class FeatureAModule : FeatureModule {
             ScreenA(onResult = onResult)
         }
     }
-
 }

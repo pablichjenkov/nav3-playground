@@ -1,33 +1,27 @@
 package com.macaosoftware.nav3playground.moduleA.arch
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.navigation3.runtime.EntryProviderScope
-import com.macaosoftware.nav3playground.common.arch.FeatureModule
-import com.macaosoftware.nav3playground.common.auth.arch.AuthFeatureModule
+import com.macaosoftware.nav3playground.common.arch.ResultFeed
+import com.macaosoftware.nav3playground.common.auth.arch.ModuleAuthNav3Graph
+import com.macaosoftware.nav3playground.common.ui.navigation.EntryProviderScopeLambda
+import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Graph
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
-import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
 import com.macaosoftware.nav3playground.moduleA.ui.view.FeedContainer
 import com.macaosoftware.nav3playground.moduleA.ui.view.FeedContainerCallback
 import dev.zacsweers.metro.Inject
 
-private typealias EntryProviderScopeLambda = EntryProviderScope<Route>.() -> Unit
-
-internal data object Feed : NavBarItem(icon = Icons.Default.Star, description = "Feed")
-
 @Inject
-class FeedFeatureModule : FeatureModule {
+class FeedNav3Graph : Nav3Graph {
 
     // TODO: Inject this using Metro
-    private val authFeatureModule = AuthFeatureModule()
-    private val authEntryPointRoute = authFeatureModule.getEntryPointNavBarItem()
+    private val authFeatureModule = ModuleAuthNav3Graph()
+    private val authEntryPointRoute = authFeatureModule.entryPointNavBarItem()
 
-    override fun getEntryPointNavBarItem(): NavBarItem = Feed
+    override fun entryPointNavBarItem(): NavBarItem = Feed
 
-    fun getModuleFeedEntryProviderBuilder(
+    fun entryProviderBuilder(
         singleStackNavigator: SingleStackNavigator,
-        onResult: () -> Unit
+        onResult: (ResultFeed) -> Unit
     ): EntryProviderScopeLambda = {
         entry<Feed> {
             FeedContainer(
@@ -39,7 +33,7 @@ class FeedFeatureModule : FeatureModule {
             )
         }
 
-        authFeatureModule.getModuleAuthEntryProviderBuilder(
+        authFeatureModule.entryProviderBuilder(
             singleStackNavigator = singleStackNavigator,
             onResult = { loginResult ->
                 if (loginResult) {
@@ -51,5 +45,4 @@ class FeedFeatureModule : FeatureModule {
             }
         ).invoke(this)
     }
-
 }

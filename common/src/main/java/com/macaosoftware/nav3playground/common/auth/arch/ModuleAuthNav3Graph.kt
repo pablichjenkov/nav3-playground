@@ -2,18 +2,16 @@ package com.macaosoftware.nav3playground.common.auth.arch
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
-import androidx.navigation3.runtime.EntryProviderScope
-import com.macaosoftware.nav3playground.common.arch.FeatureModule
 import com.macaosoftware.nav3playground.common.auth.ui.CreateAccountContainer
 import com.macaosoftware.nav3playground.common.auth.ui.ForgotPasswordContainer
 import com.macaosoftware.nav3playground.common.auth.ui.LoginContainer
 import com.macaosoftware.nav3playground.common.auth.ui.LoginContainerCallback
+import com.macaosoftware.nav3playground.common.ui.navigation.EntryProviderScopeLambda
+import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Graph
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
 import dev.zacsweers.metro.Inject
-
-private typealias EntryProviderScopeLambda = EntryProviderScope<Route>.() -> Unit
 
 private data object Login : NavBarItem(
     icon = Icons.Default.Call,
@@ -24,11 +22,11 @@ private data object CreateAccount : Route
 private data object ForgotPassword : Route
 
 @Inject
-class AuthFeatureModule : FeatureModule {
+class ModuleAuthNav3Graph : Nav3Graph {
 
-    override fun getEntryPointNavBarItem(): NavBarItem = Login
+    override fun entryPointNavBarItem(): NavBarItem = Login
 
-    fun getModuleAuthEntryProviderBuilder(
+    fun entryProviderBuilder(
         singleStackNavigator: SingleStackNavigator,
         onResult: (Boolean) -> Unit
     ): EntryProviderScopeLambda = {

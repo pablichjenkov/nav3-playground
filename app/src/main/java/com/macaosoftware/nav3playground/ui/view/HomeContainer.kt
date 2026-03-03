@@ -19,21 +19,22 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationEventHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
-import com.macaosoftware.nav3playground.common.arch.FeatureModule
 import com.macaosoftware.nav3playground.common.arch.ResultA
-import com.macaosoftware.nav3playground.common.search.arch.SearchFeatureModule
+import com.macaosoftware.nav3playground.common.arch.ResultB
+import com.macaosoftware.nav3playground.common.search.arch.SearchNav3Graph
 import com.macaosoftware.nav3playground.common.search.arch.SearchNavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.LocalResultStore
+import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Graph
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.TopLevelNavigator
-import com.macaosoftware.nav3playground.moduleA.arch.FeatureAModule
-import com.macaosoftware.nav3playground.moduleA.arch.FeedFeatureModule
-import com.macaosoftware.nav3playground.moduleB.arch.FeatureBModule
+import com.macaosoftware.nav3playground.moduleA.arch.FeedNav3Graph
+import com.macaosoftware.nav3playground.moduleA.arch.ModuleANav3Graph
+import com.macaosoftware.nav3playground.moduleB.arch.ModuleBNav3Graph
 
 @Composable
 fun HomeContainer(
-    featureModuleList: List<FeatureModule>,
+    nav3GraphList: List<Nav3Graph>,
     navBarItemList: List<NavBarItem>,
     onExit: () -> Unit
 ) {
@@ -104,58 +105,58 @@ fun HomeContainer(
                 topLevelNavigator.goBack()
             },
             entryProvider = entryProvider {
-                featureModuleList.forEach { featureModule ->
+                val localResultStore = LocalResultStore.current
+                nav3GraphList.forEach { featureModule ->
                     when (featureModule) {
 
                         // Add Module Common Routes
-                        is SearchFeatureModule -> {
-                            featureModule.getModuleCommonEntryProviderBuilder(
+                        is SearchNav3Graph -> {
+                            featureModule.entryProviderBuilder(
                                 singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
-                                    navBarItem = featureModule.getEntryPointNavBarItem()
+                                    navBarItem = featureModule.entryPointNavBarItem()
                                 ),
                                 onResult = {}
                             ).invoke(this)
                         }
 
                         // Add Module A Routes
-                        is FeatureAModule -> {
-                            val localResultStore = LocalResultStore.current
-                            featureModule.getModuleAEntryProviderBuilder(
+                        is ModuleANav3Graph -> {
+                            featureModule.entryProviderScope(
                                 singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
-                                    navBarItem = featureModule.getEntryPointNavBarItem()
+                                    navBarItem = featureModule.entryPointNavBarItem()
                                 ),
                                 onResult = {
-                                    // Set a Result for the coming screen to be resumed
-                                    localResultStore.setResult<ResultA>(
-                                        result = ResultA(
-                                            data = "FeatureA_Result_Success"
-                                        )
-                                    )
+                                    // Set a ResultA for the coming screen to be resumed
+                                    localResultStore.setResult<ResultA>(result = it)
 
-                                    // Programmatically navigate to module A to B
+                                    // Programmatically navigate from module A to B
                                     topLevelNavigator.selectTopLevel(
                                         navBarItem = navBarItemList[2]
                                     )
                                 }
-
                             ).invoke(this)
                         }
 
                         // Add Module B Routes
-                        is FeatureBModule -> {
-                            featureModule.getModuleBEntryProviderBuilder(
+                        is ModuleBNav3Graph -> {
+                            featureModule.entryProviderBuilder(
                                 singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
-                                    navBarItem = featureModule.getEntryPointNavBarItem()
+                                    navBarItem = featureModule.entryPointNavBarItem()
                                 ),
-                                onResult = {}
+                                onResult = {
+                                    // Set a ResultB for the coming screen to be resumed
+                                    localResultStore.setResult<ResultB>(result = it)
+
+                                    topLevelNavigator.goBack()
+                                }
                             ).invoke(this)
                         }
 
                         // Add Module Feed Routes
-                        is FeedFeatureModule -> {
-                            featureModule.getModuleFeedEntryProviderBuilder(
+                        is FeedNav3Graph -> {
+                            featureModule.entryProviderBuilder(
                                 singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
-                                    navBarItem = featureModule.getEntryPointNavBarItem()
+                                    navBarItem = featureModule.entryPointNavBarItem()
                                 ),
                                 onResult = {}
                             ).invoke(this)
