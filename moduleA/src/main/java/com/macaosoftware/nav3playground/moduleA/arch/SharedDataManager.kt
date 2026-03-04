@@ -1,4 +1,9 @@
 package com.macaosoftware.nav3playground.moduleA.arch
 
-internal class SharedDataManager {
-}
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.SingleIn
+import kotlin.random.Random
+
+@Inject
+@SingleIn(ModuleANodeScope::class)
+class SharedDataManager(val random: Int = Random(100_000).nextInt())

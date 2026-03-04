@@ -16,6 +16,7 @@ import com.macaosoftware.nav3playground.common.arch.ResultA
 @Composable
 internal fun ScreenA(
     modifier: Modifier = Modifier,
+    screenAViewModel: ScreenAViewModel,
     onResult: (ResultA) -> Unit,
 ) {
     Scaffold(

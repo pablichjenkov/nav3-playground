@@ -5,8 +5,8 @@ internal class SingleStackNavigatorImpl(
     private val navBarItem: NavBarItem
 ) : SingleStackNavigator {
 
-    override val childrenStackNavigatorMap: MutableMap<String, TopLevelNavigator>
-        get() = stackNavigator.childrenStackNavigatorMap
+    override val childrenTopLevelNavigatorMap: MutableMap<String, TopLevelNavigator>
+        get() = stackNavigator.childrenTopLevelNavigatorMap
 
     override fun navigate(
         route: Route,

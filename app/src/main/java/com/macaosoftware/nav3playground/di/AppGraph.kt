@@ -1,13 +1,15 @@
 package com.macaosoftware.nav3playground.di
 
+import com.macaosoftware.nav3playground.moduleA.arch.ModuleANodeGraph
 import com.macaosoftware.nav3playground.startup.Initializer
 import com.macaosoftware.nav3playground.startup.MainActivityCoordinator
 import com.macaosoftware.nav3playground.ui.activity.HomeActivity
+import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.DependencyGraph
 import dev.zacsweers.metro.ElementsIntoSet
 import dev.zacsweers.metro.Provides
 
-@DependencyGraph
+@DependencyGraph(scope = AppScope::class)
 interface AppGraph {
 
     val mainActivityCoordinator: MainActivityCoordinator
@@ -24,6 +26,9 @@ interface AppGraph {
     fun provideInitializers(): Set<Initializer> {
         return setOf<Initializer>(initializerA, initializerB, initializerFeed)
     }
+
+    // Children Graph factories has to be exposed.
+    val moduleANodeGraphFactory: ModuleANodeGraph.Factory
 
     @DependencyGraph.Factory
     fun interface Factory {

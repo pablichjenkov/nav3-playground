@@ -16,7 +16,7 @@ internal class StackNavigator(
     var currentNavItem by mutableStateOf<NavBarItem>(value = navBarItemList[0])
         private set
 
-    val childrenStackNavigatorMap by lazy {
+    val childrenTopLevelNavigatorMap by lazy {
         mutableMapOf<String, TopLevelNavigator>()
     }
 

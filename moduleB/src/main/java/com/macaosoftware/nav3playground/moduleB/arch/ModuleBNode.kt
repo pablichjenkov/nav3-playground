@@ -1,35 +1,31 @@
 package com.macaosoftware.nav3playground.moduleB.arch
 
 import android.util.Log
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
-import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.remember
+import androidx.navigation3.runtime.EntryProviderScope
 import com.macaosoftware.nav3playground.common.arch.ResultA
 import com.macaosoftware.nav3playground.common.arch.ResultB
 import com.macaosoftware.nav3playground.common.arch.ResultFeed
 import com.macaosoftware.nav3playground.common.arch.ResultSearch
-import com.macaosoftware.nav3playground.common.ui.navigation.EntryProviderScopeLambda
 import com.macaosoftware.nav3playground.common.ui.navigation.LocalResultStore
-import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Graph
+import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Node
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.ResultStore
+import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.SingleResultEffect
 import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
 import com.macaosoftware.nav3playground.moduleB.ui.ModuleBDrawerNavigation
 import dev.zacsweers.metro.Inject
 
 @Inject
-class ModuleBNav3Graph : Nav3Graph {
+class ModuleBNode : Nav3Node {
 
     override fun entryPointNavBarItem(): NavBarItem = Camera
 
-    fun entryProviderBuilder(
+    fun EntryProviderScope<Route>.install(
         singleStackNavigator: SingleStackNavigator,
         onResult: (ResultB) -> Unit
-    ): EntryProviderScopeLambda = {
+    ) {
         entry<Camera> {
             val resultStore: ResultStore = LocalResultStore.current
             SingleResultEffect<ResultFeed> {

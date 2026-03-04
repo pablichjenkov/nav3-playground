@@ -21,20 +21,20 @@ import androidx.navigationevent.compose.NavigationEventHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
 import com.macaosoftware.nav3playground.common.arch.ResultA
 import com.macaosoftware.nav3playground.common.arch.ResultB
-import com.macaosoftware.nav3playground.common.search.arch.SearchNav3Graph
 import com.macaosoftware.nav3playground.common.search.arch.SearchNavBarItem
+import com.macaosoftware.nav3playground.common.search.arch.SearchNode
 import com.macaosoftware.nav3playground.common.ui.navigation.LocalResultStore
-import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Graph
+import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Node
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.TopLevelNavigator
-import com.macaosoftware.nav3playground.moduleA.arch.FeedNav3Graph
-import com.macaosoftware.nav3playground.moduleA.arch.ModuleANav3Graph
-import com.macaosoftware.nav3playground.moduleB.arch.ModuleBNav3Graph
+import com.macaosoftware.nav3playground.moduleA.arch.FeedNode
+import com.macaosoftware.nav3playground.moduleA.arch.ModuleANode
+import com.macaosoftware.nav3playground.moduleB.arch.ModuleBNode
 
 @Composable
 fun HomeContainer(
-    nav3GraphList: List<Nav3Graph>,
+    nav3NodeList: List<Nav3Node>,
     navBarItemList: List<NavBarItem>,
     onExit: () -> Unit
 ) {
@@ -106,60 +106,67 @@ fun HomeContainer(
             },
             entryProvider = entryProvider {
                 val localResultStore = LocalResultStore.current
-                nav3GraphList.forEach { featureModule ->
+                nav3NodeList.forEach { featureModule ->
                     when (featureModule) {
 
                         // Add Module Common Routes
-                        is SearchNav3Graph -> {
-                            featureModule.entryProviderBuilder(
-                                singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
-                                    navBarItem = featureModule.entryPointNavBarItem()
-                                ),
-                                onResult = {}
-                            ).invoke(this)
+                        is SearchNode -> {
+                            with(receiver = featureModule) {
+                                install(
+                                    singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
+                                        navBarItem = featureModule.entryPointNavBarItem()
+                                    ),
+                                    onResult = {}
+                                )
+                            }
                         }
 
                         // Add Module A Routes
-                        is ModuleANav3Graph -> {
-                            featureModule.entryProviderScope(
-                                singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
-                                    navBarItem = featureModule.entryPointNavBarItem()
-                                ),
-                                onResult = {
-                                    // Set a ResultA for the coming screen to be resumed
-                                    localResultStore.setResult<ResultA>(result = it)
+                        is ModuleANode -> {
+                            with(receiver = featureModule) {
+                                install(
+                                    singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
+                                        navBarItem = featureModule.entryPointNavBarItem()
+                                    ),
+                                    onResult = {
+                                        // Set a ResultA for the coming screen to be resumed
+                                        localResultStore.setResult<ResultA>(result = it)
 
-                                    // Programmatically navigate from module A to B
-                                    topLevelNavigator.selectTopLevel(
-                                        navBarItem = navBarItemList[2]
-                                    )
-                                }
-                            ).invoke(this)
+                                        // Programmatically navigate from module A to B
+                                        topLevelNavigator.selectTopLevel(
+                                            navBarItem = navBarItemList[2]
+                                        )
+                                    }
+                                )
+                            }
                         }
-
                         // Add Module B Routes
-                        is ModuleBNav3Graph -> {
-                            featureModule.entryProviderBuilder(
-                                singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
-                                    navBarItem = featureModule.entryPointNavBarItem()
-                                ),
-                                onResult = {
-                                    // Set a ResultB for the coming screen to be resumed
-                                    localResultStore.setResult<ResultB>(result = it)
+                        is ModuleBNode -> {
+                            with(receiver = featureModule) {
+                                install(
+                                    singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
+                                        navBarItem = featureModule.entryPointNavBarItem()
+                                    ),
+                                    onResult = {
+                                        // Set a ResultB for the coming screen to be resumed
+                                        localResultStore.setResult<ResultB>(result = it)
 
-                                    topLevelNavigator.goBack()
-                                }
-                            ).invoke(this)
+                                        topLevelNavigator.goBack()
+                                    }
+                                )
+                            }
                         }
 
                         // Add Module Feed Routes
-                        is FeedNav3Graph -> {
-                            featureModule.entryProviderBuilder(
-                                singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
-                                    navBarItem = featureModule.entryPointNavBarItem()
-                                ),
-                                onResult = {}
-                            ).invoke(this)
+                        is FeedNode -> {
+                            with(receiver = featureModule) {
+                                install(
+                                    singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
+                                        navBarItem = featureModule.entryPointNavBarItem()
+                                    ),
+                                    onResult = {}
+                                )
+                            }
                         }
 
                         else -> {
