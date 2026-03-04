@@ -9,7 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.navigation3.runtime.EntryProviderScope
-import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Node
+import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Block
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
@@ -22,7 +22,7 @@ data object SearchNavBarItem : NavBarItem(
 )
 
 @Inject
-class SearchNode : Nav3Node {
+class SearchBlock : Nav3Block {
 
     override fun entryPointNavBarItem(): NavBarItem = SearchNavBarItem
 

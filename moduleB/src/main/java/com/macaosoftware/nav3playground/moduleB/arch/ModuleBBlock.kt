@@ -8,7 +8,7 @@ import com.macaosoftware.nav3playground.common.arch.ResultB
 import com.macaosoftware.nav3playground.common.arch.ResultFeed
 import com.macaosoftware.nav3playground.common.arch.ResultSearch
 import com.macaosoftware.nav3playground.common.ui.navigation.LocalResultStore
-import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Node
+import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Block
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.ResultStore
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
@@ -18,7 +18,7 @@ import com.macaosoftware.nav3playground.moduleB.ui.ModuleBDrawerNavigation
 import dev.zacsweers.metro.Inject
 
 @Inject
-class ModuleBNode : Nav3Node {
+class ModuleBBlock : Nav3Block {
 
     override fun entryPointNavBarItem(): NavBarItem = Camera
 

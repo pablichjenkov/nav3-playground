@@ -22,19 +22,19 @@ import androidx.navigationevent.compose.rememberNavigationEventState
 import com.macaosoftware.nav3playground.common.arch.ResultA
 import com.macaosoftware.nav3playground.common.arch.ResultB
 import com.macaosoftware.nav3playground.common.search.arch.SearchNavBarItem
-import com.macaosoftware.nav3playground.common.search.arch.SearchNode
+import com.macaosoftware.nav3playground.common.search.arch.SearchBlock
 import com.macaosoftware.nav3playground.common.ui.navigation.LocalResultStore
-import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Node
+import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Block
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.TopLevelNavigator
-import com.macaosoftware.nav3playground.moduleA.arch.FeedNode
-import com.macaosoftware.nav3playground.moduleA.arch.ModuleANode
-import com.macaosoftware.nav3playground.moduleB.arch.ModuleBNode
+import com.macaosoftware.nav3playground.moduleA.arch.FeedBlock
+import com.macaosoftware.nav3playground.moduleA.arch.ModuleABlock
+import com.macaosoftware.nav3playground.moduleB.arch.ModuleBBlock
 
 @Composable
 fun HomeContainer(
-    nav3NodeList: List<Nav3Node>,
+    nav3BlockList: List<Nav3Block>,
     navBarItemList: List<NavBarItem>,
     onExit: () -> Unit
 ) {
@@ -106,11 +106,11 @@ fun HomeContainer(
             },
             entryProvider = entryProvider {
                 val localResultStore = LocalResultStore.current
-                nav3NodeList.forEach { featureModule ->
+                nav3BlockList.forEach { featureModule ->
                     when (featureModule) {
 
                         // Add Module Common Routes
-                        is SearchNode -> {
+                        is SearchBlock -> {
                             with(receiver = featureModule) {
                                 install(
                                     singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
@@ -122,7 +122,7 @@ fun HomeContainer(
                         }
 
                         // Add Module A Routes
-                        is ModuleANode -> {
+                        is ModuleABlock -> {
                             with(receiver = featureModule) {
                                 install(
                                     singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
@@ -141,7 +141,7 @@ fun HomeContainer(
                             }
                         }
                         // Add Module B Routes
-                        is ModuleBNode -> {
+                        is ModuleBBlock -> {
                             with(receiver = featureModule) {
                                 install(
                                     singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
@@ -158,7 +158,7 @@ fun HomeContainer(
                         }
 
                         // Add Module Feed Routes
-                        is FeedNode -> {
+                        is FeedBlock -> {
                             with(receiver = featureModule) {
                                 install(
                                     singleStackNavigator = topLevelNavigator.getSingleStackNavigator(

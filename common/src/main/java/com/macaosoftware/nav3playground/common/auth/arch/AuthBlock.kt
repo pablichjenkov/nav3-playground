@@ -5,14 +5,14 @@ import com.macaosoftware.nav3playground.common.auth.ui.CreateAccountContainer
 import com.macaosoftware.nav3playground.common.auth.ui.ForgotPasswordContainer
 import com.macaosoftware.nav3playground.common.auth.ui.LoginContainer
 import com.macaosoftware.nav3playground.common.auth.ui.LoginContainerCallback
-import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Node
+import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Block
 import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
 import com.macaosoftware.nav3playground.common.ui.navigation.Route
 import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
 import dev.zacsweers.metro.Inject
 
 @Inject
-class AuthNode : Nav3Node {
+class AuthBlock : Nav3Block {
 
     override fun entryPointNavBarItem(): NavBarItem = Login
 
