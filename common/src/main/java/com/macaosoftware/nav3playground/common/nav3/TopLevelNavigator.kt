@@ -1,6 +1,7 @@
-package com.macaosoftware.nav3playground.common.ui.navigation
+package com.macaosoftware.nav3playground.common.nav3
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.navigation3.runtime.NavKey
 
 class TopLevelNavigator(
     navBarItemList: List<NavBarItem>,
@@ -12,7 +13,7 @@ class TopLevelNavigator(
         onExit = onExit
     )
 
-    val backStack: SnapshotStateList<Route>
+    val backStack: SnapshotStateList<NavKey>
         get() = stackNavigator.backStack
 
     val currentNavItem: NavBarItem
@@ -21,9 +22,9 @@ class TopLevelNavigator(
     fun selectTopLevel(navBarItem: NavBarItem) = stackNavigator.selectTopLevel(navBarItem)
 
     fun pushRouteIntoCurrentTopLevel(
-        route: Route,
+        navKey: NavKey,
         navigationMode: NavigationMode = NavigationMode.NewInstance
-    ) = stackNavigator.pushRouteIntoCurrentTopLevel(route = route, navigationMode = navigationMode)
+    ) = stackNavigator.pushRouteIntoCurrentTopLevel(navKey = navKey, navigationMode = navigationMode)
 
     fun goBack() = stackNavigator.goBack()
 

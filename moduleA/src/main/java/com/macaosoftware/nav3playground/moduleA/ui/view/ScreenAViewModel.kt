@@ -1,13 +1,13 @@
 package com.macaosoftware.nav3playground.moduleA.ui.view
 
-import com.macaosoftware.nav3playground.moduleA.arch.SharedDataManager
+import com.macaosoftware.nav3playground.moduleA.arch.ModuleASharedDataManager
 import dev.zacsweers.metro.Inject
 
 @Inject
 class ScreenAViewModel(
-    sharedDataManager: SharedDataManager
+    moduleASharedDataManager: ModuleASharedDataManager
 ) {
     init {
-        println("Pablo, ScreenAViewModel::sharedDataManager instance = ${sharedDataManager.random}")
+        println("Pablo, ScreenAViewModel::sharedDataManager instance = ${moduleASharedDataManager.random}")
     }
 }

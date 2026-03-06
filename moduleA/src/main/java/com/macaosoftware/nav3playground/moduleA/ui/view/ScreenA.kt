@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.macaosoftware.nav3playground.common.arch.ResultA
+import com.macaosoftware.nav3playground.common.results.ResultA
 
 @Composable
 internal fun ScreenA(

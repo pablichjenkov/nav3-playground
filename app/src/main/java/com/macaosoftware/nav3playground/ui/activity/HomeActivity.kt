@@ -6,8 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import com.macaosoftware.nav3playground.common.search.arch.SearchBlock
-import com.macaosoftware.nav3playground.common.ui.navigation.LocalResultStore
-import com.macaosoftware.nav3playground.common.ui.navigation.ResultStore
+import com.macaosoftware.nav3playground.common.nav3.LocalResultStore
+import com.macaosoftware.nav3playground.common.nav3.ResultStore
 import com.macaosoftware.nav3playground.moduleA.arch.FeedBlock
 import com.macaosoftware.nav3playground.moduleA.arch.ModuleABlock
 import com.macaosoftware.nav3playground.moduleB.arch.ModuleBBlock

@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 internal fun ScreenB0(
+    screenB0ViewModel: ScreenB0ViewModel,
     modifier: Modifier = Modifier
 ) {
     Scaffold(

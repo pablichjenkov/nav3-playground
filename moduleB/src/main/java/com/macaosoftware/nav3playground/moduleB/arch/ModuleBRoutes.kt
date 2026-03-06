@@ -5,7 +5,7 @@ import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.PlayArrow
-import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
+import com.macaosoftware.nav3playground.common.nav3.NavBarItem
 
 internal data object Camera : NavBarItem(
     icon = Icons.Default.Call,
@@ -28,4 +28,4 @@ internal data object PageB2NavItem : NavBarItem(
 )
 
 // @Serializable
-// private data class RouteBFinal(val id: String) : Route
+// private data class RouteBFinal(val id: String): NavKey

@@ -34,13 +34,14 @@ import androidx.navigation3.ui.NavDisplay
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationEventHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
-import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
-import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
-import com.macaosoftware.nav3playground.common.ui.navigation.TopLevelNavigator
+import com.macaosoftware.nav3playground.common.nav3.NavBarItem
+import com.macaosoftware.nav3playground.common.nav3.SingleStackNavigator
+import com.macaosoftware.nav3playground.common.nav3.TopLevelNavigator
 import com.macaosoftware.nav3playground.moduleB.arch.PageB0NavItem
 import com.macaosoftware.nav3playground.moduleB.arch.PageB1NavItem
 import com.macaosoftware.nav3playground.moduleB.arch.PageB2NavItem
 import com.macaosoftware.nav3playground.moduleB.ui.view.ScreenB0
+import com.macaosoftware.nav3playground.moduleB.ui.view.ScreenB0ViewModel
 import com.macaosoftware.nav3playground.moduleB.ui.view.ScreenB1
 import com.macaosoftware.nav3playground.moduleB.ui.view.ScreenB2
 import kotlinx.coroutines.launch
@@ -50,6 +51,7 @@ import kotlinx.coroutines.launch
 fun ModuleBDrawerNavigation(
     parentStackNavigator: SingleStackNavigator,
     navBarItemList: List<NavBarItem>,
+    screenB0ViewModel: ScreenB0ViewModel,
     onExit: () -> Unit
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -204,7 +206,7 @@ fun ModuleBDrawerNavigation(
                                 Text("Go to nested nav-display")
                             }
                         }*/
-                        ScreenB0()
+                        ScreenB0(screenB0ViewModel)
                     }
 
                     entry<PageB1NavItem> {

@@ -1,4 +1,6 @@
-package com.macaosoftware.nav3playground.common.ui.navigation
+package com.macaosoftware.nav3playground.common.nav3
+
+import androidx.navigation3.runtime.NavKey
 
 internal class SingleStackNavigatorImpl(
     private val stackNavigator: StackNavigator,
@@ -9,12 +11,12 @@ internal class SingleStackNavigatorImpl(
         get() = stackNavigator.childrenTopLevelNavigatorMap
 
     override fun navigate(
-        route: Route,
+        navKey: NavKey,
         navigationMode: NavigationMode
     ) {
         stackNavigator.navigate(
             navBarItem = navBarItem,
-            route = route,
+            navKey = navKey,
             navigationMode = navigationMode
         )
     }

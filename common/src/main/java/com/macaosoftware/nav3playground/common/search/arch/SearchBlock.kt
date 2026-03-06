@@ -9,10 +9,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.navigation3.runtime.EntryProviderScope
-import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Block
-import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
-import com.macaosoftware.nav3playground.common.ui.navigation.Route
-import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
+import androidx.navigation3.runtime.NavKey
+import com.macaosoftware.nav3playground.common.nav3.Nav3Block
+import com.macaosoftware.nav3playground.common.nav3.NavBarItem
+import com.macaosoftware.nav3playground.common.nav3.SingleStackNavigator
 import com.macaosoftware.nav3playground.common.ui.view.ContentPink
 import dev.zacsweers.metro.Inject
 
@@ -26,7 +26,7 @@ class SearchBlock : Nav3Block {
 
     override fun entryPointNavBarItem(): NavBarItem = SearchNavBarItem
 
-    fun EntryProviderScope<Route>.install(
+    fun EntryProviderScope<NavKey>.install(
         singleStackNavigator: SingleStackNavigator,
         onResult: () -> Unit
     ) {

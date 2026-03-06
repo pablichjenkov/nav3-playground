@@ -5,5 +5,5 @@ import dev.zacsweers.metro.SingleIn
 import kotlin.random.Random
 
 @Inject
-@SingleIn(ModuleANodeScope::class)
-class SharedDataManager(val random: Int = Random(100_000).nextInt())
+@SingleIn(ModuleABlockScope::class)
+class ModuleASharedDataManager(val random: Int = Random(100_000).nextInt())

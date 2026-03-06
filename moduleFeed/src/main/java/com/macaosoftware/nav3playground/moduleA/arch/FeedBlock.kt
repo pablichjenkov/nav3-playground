@@ -1,12 +1,12 @@
 package com.macaosoftware.nav3playground.moduleA.arch
 
 import androidx.navigation3.runtime.EntryProviderScope
-import com.macaosoftware.nav3playground.common.arch.ResultFeed
+import androidx.navigation3.runtime.NavKey
+import com.macaosoftware.nav3playground.common.results.ResultFeed
 import com.macaosoftware.nav3playground.common.auth.arch.AuthBlock
-import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Block
-import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
-import com.macaosoftware.nav3playground.common.ui.navigation.Route
-import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
+import com.macaosoftware.nav3playground.common.nav3.Nav3Block
+import com.macaosoftware.nav3playground.common.nav3.NavBarItem
+import com.macaosoftware.nav3playground.common.nav3.SingleStackNavigator
 import com.macaosoftware.nav3playground.moduleA.ui.view.FeedContainer
 import com.macaosoftware.nav3playground.moduleA.ui.view.FeedContainerCallback
 import dev.zacsweers.metro.Inject
@@ -20,7 +20,7 @@ class FeedBlock : Nav3Block {
 
     override fun entryPointNavBarItem(): NavBarItem = Feed
 
-    fun EntryProviderScope<Route>.install(
+    fun EntryProviderScope<NavKey>.install(
         singleStackNavigator: SingleStackNavigator,
         onResult: (ResultFeed) -> Unit
     ) {
@@ -28,7 +28,7 @@ class FeedBlock : Nav3Block {
             FeedContainer(
                 callback = FeedContainerCallback(
                     goToAuthScreen = {
-                        singleStackNavigator.navigate(route = authEntryPointRoute)
+                        singleStackNavigator.navigate(navKey = authEntryPointRoute)
                     }
                 )
             )

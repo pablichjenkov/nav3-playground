@@ -3,11 +3,11 @@ package com.macaosoftware.nav3playground.moduleA.arch
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.navigation3.runtime.EntryProviderScope
-import com.macaosoftware.nav3playground.common.arch.ResultA
-import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Block
-import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
-import com.macaosoftware.nav3playground.common.ui.navigation.Route
-import com.macaosoftware.nav3playground.common.ui.navigation.SingleStackNavigator
+import androidx.navigation3.runtime.NavKey
+import com.macaosoftware.nav3playground.common.results.ResultA
+import com.macaosoftware.nav3playground.common.nav3.Nav3Block
+import com.macaosoftware.nav3playground.common.nav3.NavBarItem
+import com.macaosoftware.nav3playground.common.nav3.SingleStackNavigator
 import com.macaosoftware.nav3playground.common.ui.view.ContentGreen
 import com.macaosoftware.nav3playground.moduleA.ui.view.ChatDetailScreen
 import com.macaosoftware.nav3playground.moduleA.ui.view.ScreenA
@@ -15,22 +15,22 @@ import dev.zacsweers.metro.Inject
 
 @Inject
 class ModuleABlock(
-    moduleANodeGraphFactory: ModuleANodeGraph.Factory
+    moduleABlockGraphFactory: ModuleABlockGraph.Factory
 ) : Nav3Block {
-    val moduleANodeGraph = moduleANodeGraphFactory.createModuleANodeGraph()
+    val moduleANodeGraph = moduleABlockGraphFactory.createModuleANodeGraph()
     var screenAViewModel = moduleANodeGraph.screenAViewModel
     var chatDetailScreenViewModel = moduleANodeGraph.chatDetailScreenViewModel
 
     override fun entryPointNavBarItem(): NavBarItem = ChatList
 
-    fun EntryProviderScope<Route>.install(
+    fun EntryProviderScope<NavKey>.install(
         singleStackNavigator: SingleStackNavigator,
         onResult: (ResultA) -> Unit
     ) {
         entry<ChatList> {
             ContentGreen("Chat list screen") {
                 Button(onClick = {
-                    singleStackNavigator.navigate(route = ChatDetail)
+                    singleStackNavigator.navigate(navKey = ChatDetail)
                 }) {
                     Text("Go to conversation")
                 }
@@ -40,7 +40,7 @@ class ModuleABlock(
             ChatDetailScreen(
                 chatDetailScreenViewModel = chatDetailScreenViewModel,
                 onClick = {
-                    singleStackNavigator.navigate(route = RouteAFinal)
+                    singleStackNavigator.navigate(navKey = RouteAFinal)
                 }
             )
         }

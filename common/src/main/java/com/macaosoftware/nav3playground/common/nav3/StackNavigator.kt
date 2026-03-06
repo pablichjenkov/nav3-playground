@@ -1,17 +1,18 @@
-package com.macaosoftware.nav3playground.common.ui.navigation
+package com.macaosoftware.nav3playground.common.nav3
 
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.navigation3.runtime.NavKey
 
 internal class StackNavigator(
     navBarItemList: List<NavBarItem>,
     val onExit: () -> Unit
 ) {
 
-    val backStack = mutableStateListOf<Route>(navBarItemList[0])
+    val backStack = mutableStateListOf<NavKey>(navBarItemList[0])
 
     var currentNavItem by mutableStateOf<NavBarItem>(value = navBarItemList[0])
         private set
@@ -20,7 +21,7 @@ internal class StackNavigator(
         mutableMapOf<String, TopLevelNavigator>()
     }
 
-    private val stackToNavBarItemMap: LinkedHashMap<NavBarItem, MutableList<Route>> =
+    private val stackToNavBarItemMap: LinkedHashMap<NavBarItem, MutableList<NavKey>> =
         LinkedHashMap()
 
     private val navBarItemTransactionHistory = mutableListOf<NavBarItem>()
@@ -51,14 +52,14 @@ internal class StackNavigator(
 
     fun navigate(
         navBarItem: NavBarItem,
-        route: Route,
+        navKey: NavKey,
         navigationMode: NavigationMode = NavigationMode.NewInstance
     ) {
         when (navigationMode) {
             NavigationMode.NewInstance -> {
                 stackToNavBarItemMap[navBarItem]?.let { newStack ->
-                    newStack.add(route)
-                    backStack.add(route)
+                    newStack.add(navKey)
+                    backStack.add(navKey)
                     currentNavItem = navBarItem
                 } ?: run {
                     Log.d("StackNavigator", "navBarItem: $navBarItem, not found")
@@ -67,9 +68,9 @@ internal class StackNavigator(
 
             NavigationMode.SingleInstance -> {
                 stackToNavBarItemMap[navBarItem]?.let { newStack ->
-                    val index = newStack.indexOf(route)
-                    val modifiedNewStack: MutableList<Route> = if (index == -1) {
-                        newStack.apply { add(route) }
+                    val index = newStack.indexOf(navKey)
+                    val modifiedNewStack: MutableList<NavKey> = if (index == -1) {
+                        newStack.apply { add(navKey) }
                     } else {
                         newStack.subList(0, index + 1)
                     }
@@ -90,23 +91,23 @@ internal class StackNavigator(
     }
 
     fun pushRouteIntoCurrentTopLevel(
-        route: Route,
+        navKey: NavKey,
         navigationMode: NavigationMode = NavigationMode.NewInstance
     ) {
         when (navigationMode) {
             NavigationMode.NewInstance -> {
                 stackToNavBarItemMap[currentNavItem]?.let { currentStack ->
                     // Make sure both stacks gets updated
-                    currentStack.add(route)
-                    backStack.add(route)
+                    currentStack.add(navKey)
+                    backStack.add(navKey)
                 }
             }
 
             NavigationMode.SingleInstance -> {
                 stackToNavBarItemMap[currentNavItem]?.let { currentStack ->
-                    val index = currentStack.indexOf(route)
-                    val modifiedNewStack: MutableList<Route> = if (index == -1) {
-                        currentStack.apply { add(route) }
+                    val index = currentStack.indexOf(navKey)
+                    val modifiedNewStack: MutableList<NavKey> = if (index == -1) {
+                        currentStack.apply { add(navKey) }
                     } else {
                         currentStack.subList(0, index + 1)
                     }

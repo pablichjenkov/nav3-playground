@@ -1,4 +1,4 @@
-package com.macaosoftware.nav3playground.common.ui.navigation
+package com.macaosoftware.nav3playground.common.nav3
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,7 +18,7 @@ inline fun <reified T> ResultEffect(
     resultKey: String = T::class.toString(),
     crossinline onResult: suspend (T) -> Unit
 ) {
-    LaunchedEffect(resultKey, resultStore.channelMap[resultKey]) {
+    LaunchedEffect(key1 = resultKey, key2 = resultStore.channelMap[resultKey]) {
         resultStore.getResultFlow<T>()?.collect { result ->
             onResult.invoke(result as T)
         }

@@ -14,20 +14,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationEventHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
-import com.macaosoftware.nav3playground.common.arch.ResultA
-import com.macaosoftware.nav3playground.common.arch.ResultB
+import com.macaosoftware.nav3playground.common.results.ResultA
+import com.macaosoftware.nav3playground.common.results.ResultB
 import com.macaosoftware.nav3playground.common.search.arch.SearchNavBarItem
 import com.macaosoftware.nav3playground.common.search.arch.SearchBlock
-import com.macaosoftware.nav3playground.common.ui.navigation.LocalResultStore
-import com.macaosoftware.nav3playground.common.ui.navigation.Nav3Block
-import com.macaosoftware.nav3playground.common.ui.navigation.NavBarItem
-import com.macaosoftware.nav3playground.common.ui.navigation.Route
-import com.macaosoftware.nav3playground.common.ui.navigation.TopLevelNavigator
+import com.macaosoftware.nav3playground.common.nav3.LocalResultStore
+import com.macaosoftware.nav3playground.common.nav3.Nav3Block
+import com.macaosoftware.nav3playground.common.nav3.NavBarItem
+import com.macaosoftware.nav3playground.common.nav3.TopLevelNavigator
 import com.macaosoftware.nav3playground.moduleA.arch.FeedBlock
 import com.macaosoftware.nav3playground.moduleA.arch.ModuleABlock
 import com.macaosoftware.nav3playground.moduleB.arch.ModuleBBlock
@@ -68,7 +68,7 @@ fun HomeContainer(
         topBar = {
             TopAppBarWithSearch {
                 topLevelNavigator.pushRouteIntoCurrentTopLevel(
-                    route = (SearchNavBarItem as Route)
+                    navKey = (SearchNavBarItem as NavKey)
                 )
             }
         },

@@ -1,6 +1,7 @@
 package com.macaosoftware.nav3playground.di
 
-import com.macaosoftware.nav3playground.moduleA.arch.ModuleANodeGraph
+import com.macaosoftware.nav3playground.moduleA.arch.ModuleABlockGraph
+import com.macaosoftware.nav3playground.moduleB.arch.ModuleBBlockGraph
 import com.macaosoftware.nav3playground.startup.Initializer
 import com.macaosoftware.nav3playground.startup.MainActivityCoordinator
 import com.macaosoftware.nav3playground.ui.activity.HomeActivity
@@ -27,8 +28,9 @@ interface AppGraph {
         return setOf<Initializer>(initializerA, initializerB, initializerFeed)
     }
 
-    // Children Graph factories has to be exposed.
-    val moduleANodeGraphFactory: ModuleANodeGraph.Factory
+    /**** Children Graph factories has to be exposed. ****/
+    val moduleABlockGraphFactory: ModuleABlockGraph.Factory
+    val moduleBBlockGraphFactory: ModuleBBlockGraph.Factory
 
     @DependencyGraph.Factory
     fun interface Factory {
