@@ -23,8 +23,7 @@ The DI framework of choice is Metro, go check the [Metro Repo](https://github.co
 <BR/>
 In the diamond architecture, each module exposes the public abstract API in common. Metro will bind the actual implementations from the feature modules or the app module.
 
-<img width="700" alt="nav3blockvissualization" src="https://github.com/user-attachments/assets/d8c80626-07f2-4238-b926-20af40463a3c" />
-
+<img width="700" alt="Screenshot 2026-03-06 at 1 48 35 PM" src="https://github.com/user-attachments/assets/9ff29a21-ffa5-4364-b076-16fd002b5ba0" />
 
 Visual representation of a **Nav3Block**
 
