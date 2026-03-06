@@ -25,7 +25,9 @@ In the diamond architecture, each module exposes the public abstract API in comm
 
 <img width="700" alt="Screenshot 2026-03-06 at 1 48 35 PM" src="https://github.com/user-attachments/assets/9ff29a21-ffa5-4364-b076-16fd002b5ba0" />
 
-Visual representation of a **Nav3Block**
+Visual representation of a **Nav3Block**.
+<BR/>
+Notice the project does not use the term **SharedViewModel** but rather **SharedUiDataManager** or **SharedDataManager** or **SharedSateManagerr**. This is in purpose because in general the term "SharedViewModel" is not confusing. Confusing because the ViewModel pattern explicitly mention that **the relation between a View and a ViewModel is a One to One**. A SharedViewModel breaks this principle, because now the View will have its own ViewModels plus a shared one. So this project removes that terminology.
 
 ### Demo
 In the demo below you can notice how nested NavDisplays interact when the user visit the differenttabs and navigate deeply within them.
