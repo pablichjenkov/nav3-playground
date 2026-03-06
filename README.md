@@ -1,6 +1,6 @@
 ### Nav3 Playground
 
-#### Module Architecture
+#### Modules Architecture
 This project inter-modular dependency uses a Diamond Architecture.
 
 <img width="700" alt="Diamond-Arch" src="https://github.com/user-attachments/assets/8d2b4e63-ccdf-4223-b11f-8f9a61affa3e" />
@@ -17,5 +17,10 @@ The DI framework of choice is Metro, go check the [Metro Repo](https://github.co
 <BR/>
 In the diamond architecture, each module exposes the public abstract API in common. Metro will bind the actual implementations from the feature modules or the app module.
 
+<img width="700" alt="Screenshot 2026-03-05 at 9 27 26 PM" src="https://github.com/user-attachments/assets/6e9f387e-b6bb-438e-be85-84c509813bf5" />
+
+Visual representation of a Nav3Block.
+
 #### Demo
+In the demo below you can notice how nested NavDisplays interact when the user visit the differenttabs and navigate deeply within them.
 <image width="330" src="https://github.com/user-attachments/assets/69d541c5-5efe-4e5f-bd9f-1e5ee295eab2"/>
