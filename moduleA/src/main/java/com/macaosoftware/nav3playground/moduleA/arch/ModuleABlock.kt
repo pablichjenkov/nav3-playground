@@ -4,10 +4,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
-import com.macaosoftware.nav3playground.common.results.ResultA
 import com.macaosoftware.nav3playground.common.nav3.Nav3Block
 import com.macaosoftware.nav3playground.common.nav3.NavBarItem
 import com.macaosoftware.nav3playground.common.nav3.SingleStackNavigator
+import com.macaosoftware.nav3playground.common.results.ResultA
 import com.macaosoftware.nav3playground.common.ui.view.ContentGreen
 import com.macaosoftware.nav3playground.moduleA.ui.view.ChatDetailScreen
 import com.macaosoftware.nav3playground.moduleA.ui.view.ScreenA
@@ -16,6 +16,8 @@ import dev.zacsweers.metro.Inject
 @Inject
 class ModuleABlock(
     moduleABlockGraphFactory: ModuleABlockGraph.Factory
+    // private val screenAViewModel: ScreenAViewModel,
+    // private val chatDetailScreenViewModel: ChatDetailScreenViewModel
 ) : Nav3Block {
     val moduleANodeGraph = moduleABlockGraphFactory.createModuleANodeGraph()
     var screenAViewModel = moduleANodeGraph.screenAViewModel
