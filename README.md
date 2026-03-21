@@ -22,11 +22,22 @@ The integrator module on the top of the diamond, this one is in charge of the **
 The DI framework of choice is Metro, go check the [Metro Repo](https://github.com/ZacSweers/metro), highly recommended.
 <BR/>
 In the diamond architecture, each module exposes the public abstract API in common. Metro will bind the actual implementations from the feature modules or the app module.
+<BR/>
+Bellow is a diagram representing how block classes are scoped in a block and how the block are scoped in the App scope.
+
+<img width="2264" height="1520" alt="Screenshot 2026-03-20 at 8 58 44 PM" src="https://github.com/user-attachments/assets/2e2d5427-dfa4-4267-a2d5-b79338f98d67" />
+
+<BR/>
+<BR/>
+Below is a more realistic representation of how a Block looks like.
+<BR/>
+<BR/>
 
 <img width="700" alt="Screenshot 2026-03-06 at 4 02 20 PM" src="https://github.com/user-attachments/assets/6a3d0633-024a-473a-bb23-6c9337aaa2d5" />
 
 
 Visual representation of a **Nav3Block**.
+<BR/>
 <BR/>
 Notice the project does not use the term **SharedViewModel** but rather **SharedUiDataManager** or **SharedDataManager** or **SharedSateManagerr**. This is in purpose because in general the term "SharedViewModel" is not confusing. Confusing because the ViewModel pattern explicitly mention that **the relation between a View and a ViewModel is a One to One**. A SharedViewModel breaks this principle, because now the View will have its own ViewModels plus a shared one. So this project removes that terminology.
 
