@@ -25,7 +25,9 @@ In the diamond architecture, each module exposes the public abstract API in comm
 <BR/>
 Bellow is a diagram representing how block classes are scoped in a block and how the block are scoped in the App scope.
 
-<img width="2264" height="1520" alt="Screenshot 2026-03-20 at 8 58 44 PM" src="https://github.com/user-attachments/assets/2e2d5427-dfa4-4267-a2d5-b79338f98d67" />
+
+<img width="700" height="1524" alt="Screenshot 2026-03-21 at 9 48 47 PM" src="https://github.com/user-attachments/assets/342ae27d-4d41-46cc-9aa7-d263dd3e6e8e" />
+
 
 <BR/>
 <BR/>
