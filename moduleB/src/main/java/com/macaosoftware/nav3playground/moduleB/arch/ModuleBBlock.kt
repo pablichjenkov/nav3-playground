@@ -14,7 +14,11 @@ import com.macaosoftware.nav3playground.common.results.ResultA
 import com.macaosoftware.nav3playground.common.results.ResultB
 import com.macaosoftware.nav3playground.common.results.ResultFeed
 import com.macaosoftware.nav3playground.common.results.ResultSearch
+import com.macaosoftware.nav3playground.moduleB.ui.Camera
 import com.macaosoftware.nav3playground.moduleB.ui.ModuleBDrawerNavigation
+import com.macaosoftware.nav3playground.moduleB.ui.PageB0NavItem
+import com.macaosoftware.nav3playground.moduleB.ui.PageB1NavItem
+import com.macaosoftware.nav3playground.moduleB.ui.PageB2NavItem
 import dev.zacsweers.metro.Inject
 
 @Inject

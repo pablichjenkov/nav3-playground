@@ -37,9 +37,6 @@ import androidx.navigationevent.compose.rememberNavigationEventState
 import com.macaosoftware.nav3playground.common.nav3.NavBarItem
 import com.macaosoftware.nav3playground.common.nav3.SingleStackNavigator
 import com.macaosoftware.nav3playground.common.nav3.TopLevelNavigator
-import com.macaosoftware.nav3playground.moduleB.arch.PageB0NavItem
-import com.macaosoftware.nav3playground.moduleB.arch.PageB1NavItem
-import com.macaosoftware.nav3playground.moduleB.arch.PageB2NavItem
 import com.macaosoftware.nav3playground.moduleB.ui.view.ScreenB0
 import com.macaosoftware.nav3playground.moduleB.ui.view.ScreenB0ViewModel
 import com.macaosoftware.nav3playground.moduleB.ui.view.ScreenB1

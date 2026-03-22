@@ -1,4 +1,4 @@
-package com.macaosoftware.nav3playground.moduleA.arch
+package com.macaosoftware.nav3playground.moduleA.ui
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face

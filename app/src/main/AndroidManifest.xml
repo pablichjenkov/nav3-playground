@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
-        android:name=".startup.Nav3PlaygroundApplication"
+        android:name="com.macaosoftware.nav3playground.startup.Nav3PlaygroundApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nav3PlaygroundApp">
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name="com.macaosoftware.nav3playground.ui.activity.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Nav3PlaygroundSplashScreen">
             <intent-filter>
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.HomeActivity"
+            android:name="com.macaosoftware.nav3playground.ui.activity.HomeActivity"
             android:exported="false" />
     </application>
 

@@ -1,5 +1,6 @@
-package com.macaosoftware.nav3playground.moduleA.arch
+package com.macaosoftware.nav3playground.moduleA.ui
 
+import com.macaosoftware.nav3playground.moduleA.arch.ModuleABlockScope
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.SingleIn
 import kotlin.random.Random

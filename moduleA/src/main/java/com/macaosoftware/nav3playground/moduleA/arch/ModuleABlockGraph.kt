@@ -6,7 +6,7 @@ import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.GraphExtension
 
-@GraphExtension(ModuleABlockScope::class)
+@GraphExtension(scope = ModuleABlockScope::class)
 interface ModuleABlockGraph {
 
     val screenAViewModel: ScreenAViewModel

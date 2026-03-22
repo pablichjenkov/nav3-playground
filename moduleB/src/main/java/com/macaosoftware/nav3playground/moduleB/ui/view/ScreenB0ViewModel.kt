@@ -1,6 +1,6 @@
 package com.macaosoftware.nav3playground.moduleB.ui.view
 
-import com.macaosoftware.nav3playground.moduleB.arch.ModuleBSharedDataManager
+import com.macaosoftware.nav3playground.moduleB.ui.ModuleBSharedDataManager
 import dev.zacsweers.metro.Inject
 
 @Inject

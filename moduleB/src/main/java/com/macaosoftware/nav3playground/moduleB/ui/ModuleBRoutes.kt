@@ -1,4 +1,4 @@
-package com.macaosoftware.nav3playground.moduleB.arch
+package com.macaosoftware.nav3playground.moduleB.ui
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle

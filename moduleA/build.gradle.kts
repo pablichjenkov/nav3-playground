@@ -1,13 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.metro)
 }
 
 android {
-    namespace = "com.macaosoftware.nav3playground"
+    namespace = "com.macaosoftware.nav3playground.moduleA"
     compileSdk = 36
 
     defaultConfig {
