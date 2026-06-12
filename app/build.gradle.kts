@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.macaosoftware.nav3playground"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.macaosoftware.nav3playground"

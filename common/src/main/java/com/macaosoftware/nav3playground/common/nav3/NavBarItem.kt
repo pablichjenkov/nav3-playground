@@ -7,3 +7,5 @@ abstract class NavBarItem(
     val icon: ImageVector,
     val description: String
 ) : NavKey
+
+object EmptyNavKey : NavKey

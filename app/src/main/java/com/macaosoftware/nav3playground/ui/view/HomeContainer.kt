@@ -14,27 +14,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationEventHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
-import com.macaosoftware.nav3playground.common.results.ResultA
-import com.macaosoftware.nav3playground.common.results.ResultB
-import com.macaosoftware.nav3playground.common.search.arch.SearchNavBarItem
-import com.macaosoftware.nav3playground.common.search.arch.SearchBlock
+import com.macaosoftware.nav3playground.common.nav3.EmptyNavKey
 import com.macaosoftware.nav3playground.common.nav3.LocalResultStore
 import com.macaosoftware.nav3playground.common.nav3.Nav3Block
 import com.macaosoftware.nav3playground.common.nav3.NavBarItem
 import com.macaosoftware.nav3playground.common.nav3.TopLevelNavigator
+import com.macaosoftware.nav3playground.common.results.ResultA
+import com.macaosoftware.nav3playground.common.results.ResultB
+import com.macaosoftware.nav3playground.common.search.arch.SearchBlock
+import com.macaosoftware.nav3playground.common.search.arch.SearchNavBarItem
 import com.macaosoftware.nav3playground.moduleA.arch.FeedBlock
 import com.macaosoftware.nav3playground.moduleA.arch.ModuleABlock
 import com.macaosoftware.nav3playground.moduleB.arch.ModuleBBlock
 
 @Composable
 fun HomeContainer(
-    nav3BlockList: List<Nav3Block>,
+    nav3BlockList: List<Nav3Block<*>>,
     navBarItemList: List<NavBarItem>,
     onExit: () -> Unit
 ) {
@@ -104,27 +106,41 @@ fun HomeContainer(
                  * */
                 topLevelNavigator.goBack()
             },
-            entryProvider = entryProvider {
+            entryProvider = entryProvider(
+                fallback = {
+                    NavEntry(EmptyNavKey) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                modifier = Modifier.wrapContentSize(),
+                                text = "No Composable defined. Seeing: EmptyNavKey"
+                            )
+                        }
+                    }
+                }
+            ) {
                 val localResultStore = LocalResultStore.current
                 nav3BlockList.forEach { featureModule ->
                     when (featureModule) {
 
                         // Add Module Common Routes
                         is SearchBlock -> {
-                            with(receiver = featureModule) {
-                                install(
+                            featureModule.installEntries(
+                                input = SearchBlock.Input(
                                     singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
                                         navBarItem = featureModule.entryPointNavBarItem()
                                     ),
                                     onResult = {}
                                 )
-                            }
+                            )
                         }
 
                         // Add Module A Routes
                         is ModuleABlock -> {
-                            with(receiver = featureModule) {
-                                install(
+                            featureModule.installEntries(
+                                input = ModuleABlock.Input(
                                     singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
                                         navBarItem = featureModule.entryPointNavBarItem()
                                     ),
@@ -138,12 +154,12 @@ fun HomeContainer(
                                         )
                                     }
                                 )
-                            }
+                            )
                         }
                         // Add Module B Routes
                         is ModuleBBlock -> {
-                            with(receiver = featureModule) {
-                                install(
+                            featureModule.installEntries(
+                                input = ModuleBBlock.Input(
                                     singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
                                         navBarItem = featureModule.entryPointNavBarItem()
                                     ),
@@ -154,19 +170,19 @@ fun HomeContainer(
                                         topLevelNavigator.goBack()
                                     }
                                 )
-                            }
+                            )
                         }
 
                         // Add Module Feed Routes
                         is FeedBlock -> {
-                            with(receiver = featureModule) {
-                                install(
+                            featureModule.installEntries(
+                                input = FeedBlock.Input(
                                     singleStackNavigator = topLevelNavigator.getSingleStackNavigator(
                                         navBarItem = featureModule.entryPointNavBarItem()
                                     ),
                                     onResult = {}
                                 )
-                            }
+                            )
                         }
 
                         else -> {

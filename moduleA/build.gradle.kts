@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.macaosoftware.nav3playground.moduleA"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 28

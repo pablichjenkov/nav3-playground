@@ -10,9 +10,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
+import com.macaosoftware.nav3playground.common.nav3.EntryProviderBuilder
 import com.macaosoftware.nav3playground.common.nav3.Nav3Block
+import com.macaosoftware.nav3playground.common.nav3.Nav3BlockBuilder
 import com.macaosoftware.nav3playground.common.nav3.NavBarItem
 import com.macaosoftware.nav3playground.common.nav3.SingleStackNavigator
+import com.macaosoftware.nav3playground.common.results.ResultFeed
 import com.macaosoftware.nav3playground.common.ui.view.ContentPink
 import dev.zacsweers.metro.Inject
 
@@ -22,14 +25,12 @@ data object SearchNavBarItem : NavBarItem(
 )
 
 @Inject
-class SearchBlock : Nav3Block {
+class SearchBlock : Nav3Block<SearchBlock.Input> {
 
     override fun entryPointNavBarItem(): NavBarItem = SearchNavBarItem
 
-    fun EntryProviderScope<NavKey>.install(
-        singleStackNavigator: SingleStackNavigator,
-        onResult: () -> Unit
-    ) {
+    context(entryProviderScope: EntryProviderScope<NavKey>)
+    override fun installEntries(input: Input): Nav3BlockBuilder = Nav3BlockBuilder(entryProviderScope) {
         entry<SearchNavBarItem> {
             ContentPink("Search Screen") {
                 var text by rememberSaveable { mutableStateOf("") }
@@ -42,4 +43,9 @@ class SearchBlock : Nav3Block {
             }
         }
     }
+
+    class Input(
+        val singleStackNavigator: SingleStackNavigator,
+        val onResult: () -> Unit
+    )
 }

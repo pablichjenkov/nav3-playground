@@ -6,6 +6,7 @@ import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import com.macaosoftware.nav3playground.common.nav3.LocalResultStore
 import com.macaosoftware.nav3playground.common.nav3.Nav3Block
+import com.macaosoftware.nav3playground.common.nav3.Nav3BlockBuilder
 import com.macaosoftware.nav3playground.common.nav3.NavBarItem
 import com.macaosoftware.nav3playground.common.nav3.ResultStore
 import com.macaosoftware.nav3playground.common.nav3.SingleResultEffect
@@ -24,16 +25,16 @@ import dev.zacsweers.metro.Inject
 @Inject
 class ModuleBBlock(
     moduleBBlockGraphFactory: ModuleBBlockGraph.Factory
-) : Nav3Block {
+) : Nav3Block<ModuleBBlock.Input> {
 
     val screenB0ViewModel = moduleBBlockGraphFactory.createModuleBNodeGraph().screenB0ViewModel
 
     override fun entryPointNavBarItem(): NavBarItem = Camera
 
-    fun EntryProviderScope<NavKey>.install(
-        singleStackNavigator: SingleStackNavigator,
-        onResult: (ResultB) -> Unit
-    ) {
+    context(entryProviderScope: EntryProviderScope<NavKey>)
+    override fun installEntries(
+        input: Input
+    ): Nav3BlockBuilder = Nav3BlockBuilder(entryProviderScope) {
         entry<Camera> {
             val resultStore: ResultStore = LocalResultStore.current
             SingleResultEffect<ResultFeed> {
@@ -54,12 +55,16 @@ class ModuleBBlock(
             }
 
             ModuleBDrawerNavigation(
-                parentStackNavigator = singleStackNavigator,
+                parentStackNavigator = input.singleStackNavigator,
                 navBarItemList = navBarItemList,
                 screenB0ViewModel = screenB0ViewModel,
-                onExit = { singleStackNavigator.goBack() }
+                onExit = { input.singleStackNavigator.goBack() }
             )
         }
     }
 
+    class Input(
+        val singleStackNavigator: SingleStackNavigator,
+        val onResult: (ResultB) -> Unit
+    )
 }
